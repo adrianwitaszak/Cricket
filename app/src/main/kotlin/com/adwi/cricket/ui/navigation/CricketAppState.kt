@@ -6,6 +6,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -43,5 +44,20 @@ class PexAppState(
 
     fun upPress() {
         navController.navigateUp()
+    }
+
+    fun navigateToOnBoarding() {
+            navController.navigate(MainDestinations.ONBOARDING_ROUTE)
+//        TODO("set pop to")
+    }
+
+    fun navigateToHome() {
+            navController.navigate(MainDestinations.HOME_ROUTE)
+            TODO("set pop to")
+    }
+
+    fun navigateToAuth() {
+            navController.navigate(MainDestinations.AUTH_ROUTE)
+            TODO("set pop to")
     }
 }

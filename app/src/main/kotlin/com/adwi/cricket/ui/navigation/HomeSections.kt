@@ -11,6 +11,7 @@ enum class HomeSections(
     val icon: ImageVector,
     val route: String,
 ) {
+    AUTH(R.string.home, Icons.Outlined.Home, "home/auth"),
     HOME(R.string.home, Icons.Outlined.Home, "home/home"),
 //    SEARCH(R.string.search, Icons.Outlined.Search, "home/search"),
 //    FAVORITES(R.string.favorites, Icons.Outlined.Favorite, "home/favorites"),

@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature.auth
+package com.adwi.cricket.feature.auth.ui
 
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -8,10 +8,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -21,21 +18,38 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.adwi.cricket.core.LoadingState
-import com.adwi.cricket.feature.auth.components.AuthHeader
-import com.adwi.cricket.feature.auth.components.GoogleSigningButton
+import com.adwi.cricket.feature.auth.R
+import com.adwi.cricket.feature.auth.ui.components.AuthHeader
+import com.adwi.cricket.feature.auth.ui.components.GoogleSigningButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import kotlinx.coroutines.launch
 
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel,
     appName: String,
-    onStartWithoutSignInClick: () -> Unit,
+    goHome: () -> Unit,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val state by viewModel.loadingState.collectAsState()
+    val state by viewModel.state.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+
+    when (val loadingState = state.loadingState) {
+        is LoadingState.FAILED -> {
+            LaunchedEffect(loadingState.msg != null) {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(loadingState.msg ?: "")
+                }
+            }
+        }
+        LoadingState.SUCCESS -> {
+            goHome()
+        }
+        else -> {}
+    }
 
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
@@ -43,7 +57,7 @@ fun AuthScreen(
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
-                viewModel.signWithCredential(credential)
+                viewModel.intent(AuthScreenEvent.SignWithCredential(credential))
             } catch (e: ApiException) {
                 Log.w("TAG", "Google sign in failed", e)
             }
@@ -74,7 +88,7 @@ fun AuthScreen(
                     )
                 }
             }
-            if (state is LoadingState.LOADING) {
+            if (state.loadingState is LoadingState.LOADING) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         },
@@ -94,8 +108,8 @@ fun AuthScreen(
                         .fillMaxWidth()
                         .height(50.dp),
                     onClick = {
-                        viewModel.startWithoutSignIn()
-                        onStartWithoutSignInClick()
+                        viewModel.intent(AuthScreenEvent.StartWithoutSignIn)
+                        goHome()
                     },
                 ) {
                     Text(text = "Start Without Signing In")

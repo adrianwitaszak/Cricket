@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature.auth.components
+package com.adwi.cricket.feature.auth.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
