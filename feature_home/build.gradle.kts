@@ -1,42 +1,52 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id(Plugins.ANDROID_LIBRARY)
+    kotlin(Plugins.KOTLIN_ANDROID)
+    kotlin(Plugins.KOTLIN_KAPT)
+    id(Plugins.HILT)
 }
 
 android {
-    namespace = "com.adwi.cricket.feature_home"
-    compileSdk = 32
-
+    namespace = "${AndroidConfig.applicationId}.feature.home"
+    compileSdk = AndroidConfig.compileSdk
     defaultConfig {
-        minSdk = 21
-        targetSdk = 32
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        minSdk = AndroidConfig.minSdk
+        targetSdk = AndroidConfig.targetSdk
+        testInstrumentationRunner = AndroidConfig.testInstrumentationRunner
     }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
-        }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Versions.Android.composeUi
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
+        sourceCompatibility = AndroidConfig.javaVersionName
+        targetCompatibility = AndroidConfig.javaVersionName
     }
 }
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.5.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    with(Firebase) {
+        implementation(platform(bom))
+        implementation(analytics)
+    }
+    with(Kotlin) {
+        implementation(coroutinesCore)
+        implementation(coroutinesAndroid)
+        implementation(coroutinesPlayServices)
+    }
+    with(Hilt) {
+        implementation(core)
+        kapt(compiler)
+    }
+    with(Android) {
+        implementation(lifecycle)
+        implementation(composeActivity)
+        implementation(composeUi)
+        implementation(composeTooling)
+        implementation(composeFoundation)
+        implementation(composeMaterial)
+        implementation(composeMaterial3)
+        implementation(composeConstrainLayout)
+    }
 }

@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature_home
+package com.adwi.cricket.data.local
 
 import org.junit.Test
 

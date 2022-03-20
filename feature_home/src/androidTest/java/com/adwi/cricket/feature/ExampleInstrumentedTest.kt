@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature_home
+package com.adwi.cricket.feature
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

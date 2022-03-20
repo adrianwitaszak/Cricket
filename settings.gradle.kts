@@ -1,4 +1,7 @@
 @file:Suppress("UnstableApiUsage")
+
+include(":data_local")
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
