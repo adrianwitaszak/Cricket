@@ -26,5 +26,6 @@ include(
 
     // Features
     ":feature_auth",
-    ":feature_onboarding"
+    ":feature_onboarding",
+    ":feature_home",
 )
