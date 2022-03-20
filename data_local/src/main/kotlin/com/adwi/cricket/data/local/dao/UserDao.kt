@@ -15,4 +15,5 @@ interface UserDao {
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     suspend fun updateUser(user: UserEntity)
+
 }
