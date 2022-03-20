@@ -37,6 +37,10 @@ fun AuthScreen(
     val state by viewModel.state.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
+    if (state.user != null) {
+        goHome()
+    }
+
     when (val loadingState = state.loadingState) {
         is LoadingState.FAILED -> {
             LaunchedEffect(loadingState.msg != null) {
@@ -44,9 +48,6 @@ fun AuthScreen(
                     snackbarHostState.showSnackbar(loadingState.msg ?: "")
                 }
             }
-        }
-        LoadingState.SUCCESS -> {
-            goHome()
         }
         else -> {}
     }
@@ -109,7 +110,6 @@ fun AuthScreen(
                         .height(50.dp),
                     onClick = {
                         viewModel.intent(AuthScreenEvent.StartWithoutSignIn)
-                        goHome()
                     },
                 ) {
                     Text(text = "Start Without Signing In")

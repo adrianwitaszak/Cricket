@@ -48,16 +48,16 @@ class PexAppState(
 
     fun navigateToOnBoarding() {
             navController.navigate(MainDestinations.ONBOARDING_ROUTE)
-//        TODO("set pop to")
+        TODO("set pop to")
     }
 
     fun navigateToHome() {
             navController.navigate(MainDestinations.HOME_ROUTE)
-            TODO("set pop to")
+//            TODO("set pop to")
     }
 
     fun navigateToAuth() {
             navController.navigate(MainDestinations.AUTH_ROUTE)
-            TODO("set pop to")
+//            TODO("set pop to")
     }
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "${AndroidConfig.applicationId}.data.local"
+    namespace = "${AndroidConfig.applicationId}.data.repository"
     compileSdk = AndroidConfig.compileSdk
     defaultConfig {
         minSdk = AndroidConfig.minSdk
@@ -20,16 +20,17 @@ android {
 }
 
 dependencies {
+    with(Modules) {
+        implementation(project(MODEL))
+//        implementation(project(CORE))
+        implementation(project(DATA_LOCAL))
+        implementation(project(DATA_REMOTE))
+    }
     with(Kotlin) {
         implementation(coroutinesCore)
     }
     with(Hilt) {
         implementation(core)
-        kapt(compiler)
-    }
-    with(Room) {
-        api(runtime)
-        annotationProcessor(compiler)
         kapt(compiler)
     }
 }

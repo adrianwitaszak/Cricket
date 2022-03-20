@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature_onboarding.model
+package com.adwi.cricket.feature.onboarding.model
 
 data class OnBoardingQuestion(
     val id: Int,

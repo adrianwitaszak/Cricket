@@ -1,8 +1,8 @@
-package com.adwi.cricket.feature_onboarding.screens
+package com.adwi.cricket.feature.onboarding.screens
 
 import androidx.lifecycle.ViewModel
-import com.adwi.cricket.feature_onboarding.model.OnBoardingQuestion
-import com.adwi.cricket.feature_onboarding.model.SkillLevel
+import com.adwi.cricket.feature.onboarding.model.OnBoardingQuestion
+import com.adwi.cricket.feature.onboarding.model.SkillLevel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

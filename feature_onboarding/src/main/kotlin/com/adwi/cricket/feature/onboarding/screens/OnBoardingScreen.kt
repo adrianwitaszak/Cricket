@@ -1,10 +1,10 @@
-package com.adwi.cricket.feature_onboarding.screens
+package com.adwi.cricket.feature.onboarding.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.adwi.cricket.feature_onboarding.components.NavigateBack
-import com.adwi.cricket.feature_onboarding.components.NavigateNext
+import com.adwi.cricket.feature.onboarding.components.NavigateBack
+import com.adwi.cricket.feature.onboarding.components.NavigateNext
 
 @Composable
 fun OnBoardingScreen(

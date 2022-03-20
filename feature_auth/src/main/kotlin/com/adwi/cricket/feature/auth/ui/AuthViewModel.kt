@@ -1,5 +1,6 @@
 package com.adwi.cricket.feature.auth.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adwi.cricket.core.LoadingState
@@ -17,7 +18,7 @@ class AuthViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<AuthScreenState>(AuthScreenState())
+    private val _state = MutableStateFlow(AuthScreenState())
     val state: StateFlow<AuthScreenState> get() = _state
 
     fun intent(intent: AuthScreenEvent) {
@@ -27,18 +28,24 @@ class AuthViewModel @Inject constructor(
                 signWithCredential(intent.credential)
             }
             AuthScreenEvent.StartWithoutSignIn -> startWithoutSignIn()
+            AuthScreenEvent.None -> {}
         }
     }
 
-    private val _loadingState = MutableStateFlow<LoadingState>(LoadingState.IDLE)
-    val loadingState: StateFlow<LoadingState> get() = _loadingState
-
     private fun startWithoutSignIn() = loadingStateFlow {
         //            TODO("get device IMEI as an id")
+        val result = firebaseAuth.signInAnonymously()
+        val l = result.result
+        val name = l.user?.displayName
+        val email = l.user?.email
+        Log.d("Firebase test", "name = $name \nemail = $email")
     }
 
     private fun signWithCredential(credential: AuthCredential) = loadingStateFlow {
-        firebaseAuth.signInWithCredential(credential).await()
+        val result = firebaseAuth.signInWithCredential(credential).await()
+        result?.let {
+
+        }
     }
 
     private fun signOut() {
@@ -47,12 +54,14 @@ class AuthViewModel @Inject constructor(
 
     private fun loadingStateFlow(content: suspend () -> Unit) =
         viewModelScope.launch {
-            try {
-                _loadingState.emit(LoadingState.LOADING)
-                content()
-                _loadingState.emit(LoadingState.SUCCESS)
-            } catch (e: Exception) {
-                _loadingState.emit(LoadingState.FAILED(e.localizedMessage))
+            with(_state.value) {
+                try {
+                    loadingState = LoadingState.LOADING
+                    content()
+                    loadingState = LoadingState.SUCCESS
+                } catch (e: Exception) {
+                    loadingState = LoadingState.FAILED(e.localizedMessage)
+                }
             }
-    }
+        }
 }

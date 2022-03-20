@@ -12,8 +12,8 @@ import com.adwi.cricket.feature.auth.ui.AuthScreen
 import com.adwi.cricket.feature.auth.ui.AuthViewModel
 import com.adwi.cricket.feature.home.HomeScreen
 import com.adwi.cricket.feature.home.HomeViewModel
-import com.adwi.cricket.feature_onboarding.screens.OnBoardingScreen
-import com.adwi.cricket.feature_onboarding.screens.OnBoardingViewModel
+import com.adwi.cricket.feature.onboarding.screens.OnBoardingScreen
+import com.adwi.cricket.feature.onboarding.screens.OnBoardingViewModel
 import com.google.accompanist.navigation.animation.composable
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -27,27 +27,26 @@ fun NavGraphBuilder.cricketNavGraph(
         startDestination = HomeSections.HOME.route
     ) {
         addHomeGraph()
-
-        composable(
-            route = MainDestinations.AUTH_ROUTE,
-        ) { backStackEntry ->
-            val viewModel = hiltViewModel<AuthViewModel>(backStackEntry)
-            val state by viewModel.state.collectAsState()
-            AuthScreen(
-                viewModel = viewModel,
-                appName = stringResource(id = R.string.app_name),
-                goHome = onStartWithoutSignInClick
-            )
-        }
-        composable(
-            route = MainDestinations.ONBOARDING_ROUTE,
-        ) { backStackEntry ->
-            val viewModel = hiltViewModel<OnBoardingViewModel>(backStackEntry)
-            OnBoardingScreen(
-                viewModel = viewModel,
-                onOnBoardingFinishedClick = onOnBoardingFinishedClick
-            )
-        }
+    }
+    composable(
+        route = MainDestinations.AUTH_ROUTE,
+    ) { backStackEntry ->
+        val viewModel = hiltViewModel<AuthViewModel>(backStackEntry)
+        val state by viewModel.state.collectAsState()
+        AuthScreen(
+            viewModel = viewModel,
+            appName = stringResource(id = R.string.app_name),
+            goHome = onStartWithoutSignInClick
+        )
+    }
+    composable(
+        route = MainDestinations.ONBOARDING_ROUTE,
+    ) { backStackEntry ->
+        val viewModel = hiltViewModel<OnBoardingViewModel>(backStackEntry)
+        OnBoardingScreen(
+            viewModel = viewModel,
+            onOnBoardingFinishedClick = onOnBoardingFinishedClick
+        )
     }
 }
 

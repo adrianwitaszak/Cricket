@@ -28,7 +28,7 @@ dependencies {
         kapt(compiler)
     }
     with(Room) {
-        api(runtime)
+        implementation(runtime)
         annotationProcessor(compiler)
         kapt(compiler)
     }

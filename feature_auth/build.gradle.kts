@@ -28,6 +28,8 @@ android {
 
 dependencies {
     implementation(project(Modules.CORE))
+    implementation(project(Modules.MODEL))
+    implementation(project(Modules.DATA_REPOSITORY))
 
     implementation(Google.auth)
     with(Firebase) {

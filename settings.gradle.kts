@@ -23,8 +23,8 @@ include(
     ":core",
 
     ":data_local",
-//    ":data_remote",
-//    ":data_repository",
+    ":data_remote",
+    ":data_repository",
 
     ":feature_auth",
     ":feature_onboarding",

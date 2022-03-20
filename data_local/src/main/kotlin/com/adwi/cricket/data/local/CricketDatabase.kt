@@ -13,6 +13,5 @@ import com.adwi.cricket.data.local.entity.UserEntity
     exportSchema = false
 )
 abstract class CricketDatabase : RoomDatabase() {
-
     abstract fun userDao(): UserDao
 }
