@@ -1,7 +1,4 @@
 @file:Suppress("UnstableApiUsage")
-
-include(":data_local")
-
 pluginManagement {
     repositories {
         gradlePluginPortal()
@@ -21,13 +18,14 @@ rootProject.name = "Cricket"
 
 include(
 
-    // Root
     ":app",
+    ":model",
+    ":core",
 
-    // Data
+    ":data_local",
+//    ":data_remote",
+//    ":data_repository",
 
-
-    // Features
     ":feature_auth",
     ":feature_onboarding",
     ":feature_home",

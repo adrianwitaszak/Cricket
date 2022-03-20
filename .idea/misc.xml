@@ -4,13 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/compose-model-1647765993214.xml" value="0.706060606060606" />
-        <entry key="feature_onboarding/src/main/java/com/adwi/cricket/feature_onboarding/components/NavigateBack.kt" value="0.7103030303030303" />
-        <entry key="feature_onboarding/src/main/java/com/adwi/cricket/feature_onboarding/components/NextButton.kt" value="0.5684121621621622" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
