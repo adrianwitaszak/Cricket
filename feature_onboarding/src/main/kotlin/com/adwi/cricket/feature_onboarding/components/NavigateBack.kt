@@ -44,7 +44,7 @@ fun NavigateBack(
     }
 }
 
-@Preview(showBackground = true, name = "Light", widthDp = 600, heightDp = 600)
+@Preview(showBackground = true, name = "Light", widthDp = 600)
 @Composable
 private fun NavigateBackLight() {
     Box(modifier = Modifier.fillMaxSize()) {
