@@ -47,6 +47,7 @@ dependencies {
         kapt(compiler)
     }
     with(Android) {
+        implementation(timber)
         implementation(lifecycle)
         implementation(composeActivity)
         implementation(composeUi)

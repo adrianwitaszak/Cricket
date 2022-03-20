@@ -6,8 +6,9 @@ import com.adwi.cricket.data.repository.mapper.toEntity
 import com.adwi.cricket.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class UserRepositoryImpl(
+class UserRepositoryImpl @Inject constructor(
     database: CricketDatabase
 ) : UserRepository {
 

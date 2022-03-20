@@ -25,6 +25,7 @@ object Versions {
         // Android
         const val accompanist = "0.22.0-rc"
         const val coil = "1.4.0"
+        const val timber = "4.7.1"
 
         // Testing
         const val test_core = "1.4.0"

@@ -5,7 +5,7 @@ object Gradle {
 
 object Kotlin {
     const val kotlinVersion = "1.6.10"
-    private const val coroutinesVersion = "1.5.2"
+    private const val coroutinesVersion = "1.6.0"
 
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     const val serialization =
@@ -30,6 +30,7 @@ object Hilt {
 
 object Room {
     private const val version = "2.4.2"
+    const val ktx = "androidx.room:room-ktx:$version"
     const val runtime = "androidx.room:room-runtime:$version"
     const val compiler = "androidx.room:room-compiler:$version"
 }
@@ -55,7 +56,6 @@ object Android {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.Android.appCompat}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.Android.core}"
     const val material = "com.google.android.material:material:${Versions.Android.material}"
-
 
     // Lifecycle
     const val lifecycle =
@@ -114,6 +114,7 @@ object Android {
         "com.google.accompanist:accompanist-permissions:${Versions.Android.accompanist}"
     const val accompanistSystemUiController =
         "com.google.accompanist:accompanist-systemuicontroller:${Versions.Android.accompanist}"
+    const val timber = "com.jakewharton.timber:timber:${Versions.Android.timber}"
 }
 
 object AndroidTestDependencies {

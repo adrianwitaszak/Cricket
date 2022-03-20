@@ -28,8 +28,8 @@ dependencies {
         kapt(compiler)
     }
     with(Room) {
+        implementation(ktx)
         api(runtime)
-        annotationProcessor(compiler)
         kapt(compiler)
     }
 }

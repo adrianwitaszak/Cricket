@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "${AndroidConfig.applicationId}.data.local"
+    namespace = "${AndroidConfig.applicationId}.data.remote"
     compileSdk = AndroidConfig.compileSdk
     defaultConfig {
         minSdk = AndroidConfig.minSdk
@@ -20,16 +20,11 @@ android {
 }
 
 dependencies {
-    with(Kotlin) {
-        implementation(coroutinesCore)
-    }
+//    with(Kotlin) {
+//        implementation(coroutinesCore)
+//    }
     with(Hilt) {
         implementation(core)
-        kapt(compiler)
-    }
-    with(Room) {
-        implementation(runtime)
-        annotationProcessor(compiler)
         kapt(compiler)
     }
 }

@@ -72,6 +72,7 @@ dependencies {
         implementation(navigationCompose)
     }
     with(Android) {
+        implementation(timber)
         implementation(coreKtx)
         implementation(appcompat)
         implementation(lifecycle)
