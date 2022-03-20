@@ -31,7 +31,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 
 @Composable
-fun LoginScreen(
+fun AuthScreen(
     viewModel: AuthViewModel,
     appName: String
 ) {

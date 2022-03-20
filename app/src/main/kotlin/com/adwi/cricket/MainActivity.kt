@@ -10,7 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.adwi.cricket.feature.auth.AuthViewModel
-import com.adwi.cricket.feature.auth.LoginScreen
+import com.adwi.cricket.feature.auth.AuthScreen
 import com.adwi.cricket.ui.theme.CricketTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
             CricketTheme {
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background) {
-                    LoginScreen(
+                    AuthScreen(
                         viewModel = authViewModel,
                         appName = stringResource(id = R.string.app_name)
                     )

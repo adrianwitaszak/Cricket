@@ -55,6 +55,7 @@ kapt {
 
 dependencies {
     implementation(project(Modules.AUTH))
+    implementation(project(Modules.ONBOARDING))
     implementation(Google.auth)
     with(Firebase) {
         implementation(platform(bom))
