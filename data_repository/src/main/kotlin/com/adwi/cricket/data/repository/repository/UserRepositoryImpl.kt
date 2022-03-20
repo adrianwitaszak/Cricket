@@ -1,6 +1,8 @@
-package com.adwi.cricket.data.repository
+package com.adwi.cricket.data.repository.repository
 
 import com.adwi.cricket.data.local.CricketDatabase
+import com.adwi.cricket.data.repository.mapper.toDomain
+import com.adwi.cricket.data.repository.mapper.toEntity
 import com.adwi.cricket.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,5 +21,5 @@ class UserRepositoryImpl(
         userDao.updateUser(user.toEntity())
     }
 
-    override fun getUser(id: String): Flow<User> = userDao.getUserById(id).map { it.toDomain() }
+    override fun getUser(): Flow<User?> = userDao.getUser().map { it.toDomain() }
 }

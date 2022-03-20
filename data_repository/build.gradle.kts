@@ -22,7 +22,6 @@ android {
 dependencies {
     with(Modules) {
         implementation(project(MODEL))
-//        implementation(project(CORE))
         implementation(project(DATA_LOCAL))
         implementation(project(DATA_REMOTE))
     }

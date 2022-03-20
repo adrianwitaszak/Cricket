@@ -1,4 +1,4 @@
-package com.adwi.cricket.data.repository
+package com.adwi.cricket.data.repository.mapper
 
 import com.adwi.cricket.data.local.entity.UserEntity
 import com.adwi.cricket.model.User
