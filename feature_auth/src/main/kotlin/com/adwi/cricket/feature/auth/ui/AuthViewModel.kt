@@ -3,8 +3,10 @@ package com.adwi.cricket.feature.auth.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adwi.cricket.core.LoadingState
-import com.adwi.cricket.data.repository.repository.UserRepository
-import com.adwi.cricket.data.repository.repository.UserRepositoryImpl
+import com.adwi.cricket.datasource.repository.UserRepository
+import com.adwi.cricket.datasource.repository.UserRepositoryImpl
+//import com.adwi.cricket.datasource.repository.UserRepository
+//import com.adwi.cricket.datasource.repository.UserRepositoryImpl
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-//    private val userRepository: UserRepositoryImpl
+    private val userRepository: UserRepositoryImpl,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AuthScreenState())

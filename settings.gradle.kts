@@ -22,9 +22,7 @@ include(
     ":model",
     ":core",
 
-    ":data_local",
-    ":data_remote",
-    ":data_repository",
+    ":datasource",
 
     ":feature_auth",
     ":feature_onboarding",

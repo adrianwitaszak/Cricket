@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation(project(Modules.CORE))
     implementation(project(Modules.MODEL))
-    implementation(project(Modules.DATA_REPOSITORY))
+    implementation(project(Modules.DATASOURCE))
 
     implementation(Google.auth)
     with(Firebase) {
@@ -57,4 +57,5 @@ dependencies {
         implementation(composeMaterial3)
         implementation(composeConstrainLayout)
     }
+    kapt("androidx.room:room-compiler:2.3.0")
 }
