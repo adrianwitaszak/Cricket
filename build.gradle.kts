@@ -9,6 +9,5 @@ buildscript {
         classpath(Kotlin.kotlinGradle)
         classpath(Hilt.gradle)
         classpath(Google.services)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
     }
 }

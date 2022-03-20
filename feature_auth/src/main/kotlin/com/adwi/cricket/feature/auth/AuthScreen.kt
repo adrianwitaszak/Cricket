@@ -6,23 +6,21 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.rounded.ArrowBack
-import androidx.compose.material.icons.rounded.ExitToApp
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adwi.cricket.core.LoadingState
 import com.adwi.cricket.feature.auth.components.AuthHeader
 import com.adwi.cricket.feature.auth.components.GoogleSigningButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -33,10 +31,9 @@ import com.google.firebase.auth.GoogleAuthProvider
 @Composable
 fun AuthScreen(
     viewModel: AuthViewModel,
-    appName: String
+    appName: String,
+    onStartWithoutSignInClick: () -> Unit,
 ) {
-
-
     val snackbarHostState = remember { SnackbarHostState() }
     val state by viewModel.loadingState.collectAsState()
 
@@ -62,16 +59,6 @@ fun AuthScreen(
 
     val googleSignInClient = GoogleSignIn.getClient(context, gso)
 
-    when (state.status) {
-        LoadingState.Status.SUCCESS -> {
-            Text(text = "Success")
-        }
-        LoadingState.Status.FAILED -> {
-            Text(text = state.msg ?: "Error")
-        }
-        else -> {}
-    }
-
     Scaffold(
         scaffoldState = rememberScaffoldState(snackbarHostState = snackbarHostState),
         topBar = {
@@ -87,7 +74,7 @@ fun AuthScreen(
                     )
                 }
             }
-            if (state.status == LoadingState.Status.RUNNING) {
+            if (state is LoadingState.LOADING) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         },
@@ -107,7 +94,8 @@ fun AuthScreen(
                         .fillMaxWidth()
                         .height(50.dp),
                     onClick = {
-//                             TODO(use device id as User Id)
+                        viewModel.startWithoutSignIn()
+                        onStartWithoutSignInClick()
                     },
                 ) {
                     Text(text = "Start Without Signing In")

@@ -7,3 +7,6 @@ java {
     sourceCompatibility = AndroidConfig.javaVersionName
     targetCompatibility = AndroidConfig.javaVersionName
 }
+
+dependencies {
+}

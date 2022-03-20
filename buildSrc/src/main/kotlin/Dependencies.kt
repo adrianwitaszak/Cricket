@@ -4,7 +4,7 @@ object Gradle {
 }
 
 object Kotlin {
-    internal const val kotlinVersion = "1.6.10"
+    const val kotlinVersion = "1.6.10"
     private const val coroutinesVersion = "1.5.2"
 
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
