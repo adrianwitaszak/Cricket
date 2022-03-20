@@ -11,7 +11,7 @@ android {
     defaultConfig {
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targetSdk
-        testInstrumentationRunner = AndroidConfig.testInstrumentationRunner
+        testInstrumentationRunner = AndroidConfig.hiltTestRunner
     }
     compileOptions {
         sourceCompatibility = AndroidConfig.javaVersionName
