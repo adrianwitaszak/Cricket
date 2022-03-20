@@ -30,6 +30,7 @@ data class OnBoardingAnswer(
 
 @Composable
 fun OnBoardingScreen(
+    viewModel: OnBoardingViewModel,
     questions: List<OnBoardingQuestion>
 ) {
     var currentQuestion by remember { mutableStateOf(0) }
