@@ -1,8 +1,6 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     kotlin(Plugins.KOTLIN_ANDROID)
-    kotlin(Plugins.KOTLIN_KAPT)
-    id(Plugins.HILT)
     id(Plugins.GOOGLE_SERVICES)
 }
 
@@ -42,9 +40,8 @@ dependencies {
         implementation(coroutinesAndroid)
         implementation(coroutinesPlayServices)
     }
-    with(Hilt) {
-        implementation(core)
-        kapt(compiler)
+    with(Koin) {
+        implementation(compose)
     }
     with(Android) {
         implementation(timber)
@@ -57,5 +54,4 @@ dependencies {
         implementation(composeMaterial3)
         implementation(composeConstrainLayout)
     }
-    kapt("androidx.room:room-compiler:2.3.0")
 }

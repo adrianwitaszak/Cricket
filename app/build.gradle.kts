@@ -3,8 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.KOTLIN_ANDROID)
-    kotlin(Plugins.KOTLIN_KAPT)
-    id(Plugins.HILT)
+//    kotlin(Plugins.KOTLIN_KAPT)
+//    id(Plugins.HILT)
     id(Plugins.GOOGLE_SERVICES)
 }
 
@@ -49,9 +49,9 @@ tasks.withType<KotlinCompile>().configureEach {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
+//kapt {
+//    correctErrorTypes = true
+//}
 
 dependencies {
     with(Modules) {
@@ -66,11 +66,15 @@ dependencies {
         implementation(auth)
         implementation(analytics)
     }
-    with(Hilt) {
-        kapt(compiler)
-        implementation(core)
-        implementation(navigationCompose)
+    with(Koin) {
+        implementation(android)
+        implementation(compose)
     }
+//    with(Hilt) {
+//        kapt(compiler)
+//        implementation(core)
+//        implementation(navigationCompose)
+//    }
     with(Android) {
         implementation(timber)
         implementation(coreKtx)

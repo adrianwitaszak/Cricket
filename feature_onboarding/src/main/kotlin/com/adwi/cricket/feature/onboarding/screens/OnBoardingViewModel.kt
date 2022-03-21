@@ -3,14 +3,10 @@ package com.adwi.cricket.feature.onboarding.screens
 import androidx.lifecycle.ViewModel
 import com.adwi.cricket.feature.onboarding.model.OnBoardingQuestion
 import com.adwi.cricket.feature.onboarding.model.SkillLevel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 
-@HiltViewModel
-class OnBoardingViewModel @Inject constructor(
-) : ViewModel() {
+class OnBoardingViewModel() : ViewModel() {
 
     private var _questions = MutableStateFlow<List<OnBoardingQuestion>>(emptyList())
     val questions: StateFlow<List<OnBoardingQuestion>> get() = _questions
