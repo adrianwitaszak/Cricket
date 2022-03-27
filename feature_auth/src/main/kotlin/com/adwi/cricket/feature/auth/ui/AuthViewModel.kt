@@ -31,10 +31,20 @@ class AuthViewModel @Inject constructor(
     private fun getCurrentUser() {
         viewModelScope.launch {
             userRepository.getCurrentUser().collect { firebaseUser ->
-                _loadingState.value =
-                    if (firebaseUser == null) LoadingState.IDLE else LoadingState.SUCCESS
-
-                Timber.d("\ngetCurrentUser - \nUser = ${firebaseUser?.displayName ?: "No user"} \nloading = ${loadingState.value}")
+                if (firebaseUser == null) {
+                    _user.value = null
+                    _loadingState.value = LoadingState.IDLE
+                } else {
+                    _user.value = firebaseUser
+                    _loadingState.value = LoadingState.SUCCESS
+                }
+                val message = """
+                    getCurrentUser -
+                    User = $firebaseUser
+                    Name = ${firebaseUser?.displayName}
+                    loading = ${loadingState.value}
+                """.trimIndent()
+                Timber.d(message)
             }
         }
     }
@@ -42,24 +52,17 @@ class AuthViewModel @Inject constructor(
     fun signInWithGoogle(credential: AuthCredential) {
         viewModelScope.launch {
             try {
-                Timber.d("loadingStateFlow - Idle")
                 _loadingState.value = LoadingState.LOADING
-                Timber.d("loadingStateFlow - Loading")
                 val authResult = userRepository.signInWithCredential(credential)
-
                 if (authResult?.user == null) {
                     _loadingState.value = LoadingState.FAILED(msg = "Login Failed")
-                    Timber.d("loadingStateFlow - Failed")
+                    return@launch
                 } else {
                     _loadingState.value = LoadingState.SUCCESS
                     _user.value = authResult.user
-                    Timber.d("signInWithGoogle - result = ${authResult.user?.displayName}")
                 }
-
-                Timber.d("loadingStateFlow - Success")
             } catch (e: Exception) {
                 _loadingState.value = LoadingState.FAILED(e.localizedMessage ?: "Login Failed")
-                Timber.d("loadingStateFlow - Failed")
             }
         }
     }

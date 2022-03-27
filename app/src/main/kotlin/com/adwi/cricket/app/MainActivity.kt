@@ -8,6 +8,8 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.adwi.cricket.app.ui.navigation.MainDestinations
 import com.adwi.cricket.app.ui.navigation.cricketNavGraph
@@ -31,10 +33,12 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background) {
 
                     val appState = rememberMyAppState()
+                    val user by authViewModel.user.collectAsState()
 
                     AnimatedNavHost(
                         navController = appState.navController,
-                        startDestination = MainDestinations.AUTH
+                        startDestination = if (user == null)
+                            MainDestinations.AUTH else MainDestinations.HOME
                     ) {
                         cricketNavGraph(
                             onOnBoardingFinishedClick = appState::navigateToHome,
@@ -42,7 +46,7 @@ class MainActivity : ComponentActivity() {
                                 authViewModel.signOut()
                                 appState.navigateToAuth()
                             },
-                            goHome = appState::navigateToHome
+                            goHome = { appState.navigateToHome(true) }
                         )
                     }
                 }

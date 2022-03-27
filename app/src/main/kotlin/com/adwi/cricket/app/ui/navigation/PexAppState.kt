@@ -44,7 +44,7 @@ class PexAppState(
     fun navigateToHome(fromAuth: Boolean = false) {
         navController.navigate(MainDestinations.HOME) {
             if (fromAuth) {
-                popUpTo(MainDestinations.HOME) { inclusive = true }
+                popUpTo(MainDestinations.AUTH) { inclusive = true }
             }
             launchSingleTop = true
         }
@@ -52,7 +52,7 @@ class PexAppState(
 
     fun navigateToAuth() {
         navController.navigate(MainDestinations.AUTH) {
-            popUpTo(MainDestinations.AUTH) { inclusive = true }
+            popUpTo(MainDestinations.HOME) { inclusive = true }
 
         }
     }
