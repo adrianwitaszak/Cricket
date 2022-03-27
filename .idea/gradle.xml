@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/feature_home" />
             <option value="$PROJECT_DIR$/feature_onboarding" />
             <option value="$PROJECT_DIR$/model" />
+            <option value="$PROJECT_DIR$/test_utils" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

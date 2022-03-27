@@ -36,7 +36,6 @@ fun AuthScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val loadingState by viewModel.loadingState.collectAsState()
-    val user by viewModel.user.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
     val launcher =
@@ -60,10 +59,6 @@ fun AuthScreen(
             .build()
 
     val googleSignInClient = GoogleSignIn.getClient(context, gso)
-
-//    if (user != null) {
-//        goHome()
-//    }
 
     when (loadingState) {
         is LoadingState.FAILED -> {

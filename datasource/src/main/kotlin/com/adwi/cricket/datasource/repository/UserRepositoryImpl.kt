@@ -1,13 +1,10 @@
 package com.adwi.cricket.datasource.repository
 
-import android.content.Context
-import com.google.android.gms.tasks.Task
-import com.google.firebase.FirebaseApp
+import com.adwi.cricket.datasource.mapper.toUser
+import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.tasks.await
@@ -24,5 +21,5 @@ class UserRepositoryImpl @Inject constructor(
         firebaseAuth.signOut()
     }
 
-    override fun getCurrentUser(): Flow<FirebaseUser?> = flowOf(firebaseAuth.currentUser)
+    override fun getCurrentUser(): Flow<User?> = flowOf(firebaseAuth.currentUser?.toUser())
 }

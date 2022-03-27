@@ -5,7 +5,7 @@ object Gradle {
 
 object Kotlin {
     const val kotlinVersion = "1.6.10"
-    private const val coroutinesVersion = "1.6.0"
+    const val coroutinesVersion = "1.6.0"
 
     const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     const val serialization =
@@ -119,12 +119,12 @@ object Android {
     const val timber = "com.jakewharton.timber:timber:${Versions.Android.timber}"
 }
 
-object AndroidTestDependencies {
+object TestDependencies {
     // Core library
     const val junit4Ktx = "androidx.test.ext:junit:${Versions.Android.junit4Ktx}"
     const val junit4 = "junit:junit:${Versions.Android.junit4}"
-    const val test_core = "androidx.test:core:${Versions.Android.test_core}"
-    const val arch_core = "androidx.arch.core:core-testing:${Versions.Android.arch_core}"
+    const val testCore = "androidx.test:core:${Versions.Android.test_core}"
+    const val archCore = "androidx.arch.core:core-testing:${Versions.Android.arch_core}"
 
     // Espresso dependencies
     const val espresso_core =
@@ -132,7 +132,7 @@ object AndroidTestDependencies {
 
     // Coroutines
     const val coroutinesTest =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Kotlin.coroutinesCore}"
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Kotlin.coroutinesVersion}"
     const val turbine = "app.cash.turbine:turbine:${Versions.Android.turbine}"
 
     // Assertions

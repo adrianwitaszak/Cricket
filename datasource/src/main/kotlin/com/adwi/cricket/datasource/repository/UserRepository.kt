@@ -13,5 +13,5 @@ interface UserRepository {
 
     fun signOut()
 
-    fun getCurrentUser(): Flow<FirebaseUser?>
+    fun getCurrentUser(): Flow<User?>
 }

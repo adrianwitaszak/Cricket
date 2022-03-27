@@ -5,7 +5,7 @@ plugins {
     id(Plugins.HILT)
 }
 android {
-    namespace = "${AndroidConfig.applicationId}.feature.auth"
+    namespace = "${AndroidConfig.applicationId}.test_utils"
     compileSdk = AndroidConfig.compileSdk
     defaultConfig {
         minSdk = AndroidConfig.minSdk
@@ -23,35 +23,14 @@ android {
         targetCompatibility = AndroidConfig.javaVersionName
     }
 }
-kapt {
-    correctErrorTypes = true
-}
+
 dependencies {
-    with(Modules) {
-        implementation(project(CORE))
-        implementation(project(MODEL))
-        implementation(project(DATASOURCE))
-        implementation(project(TEST_UTILS))
-    }
-    with(Kotlin) {
-        implementation(coroutinesCore)
-        implementation(coroutinesAndroid)
-    }
     with(Hilt) {
         implementation(core)
         kapt(compiler)
     }
-    with(Android) {
-        implementation(timber)
-        implementation(lifecycle)
-        implementation(composeUi)
-        implementation(composeTooling)
-        implementation(composeActivity)
-        implementation(composeMaterial)
-        implementation(composeMaterial3)
-        implementation(composeFoundation)
-        implementation(composeConstrainLayout)
-        debugImplementation(composeToolingDebug)
+    with(Kotlin) {
+        implementation(coroutinesCore)
     }
     with(TestDependencies) {
         implementation(junit4Ktx)

@@ -9,4 +9,7 @@ object Modules {
     const val AUTH = ":feature_auth"
     const val ONBOARDING = ":feature_onboarding"
     const val HOME = ":feature_home"
+
+    // Test
+    const val TEST_UTILS = ":test_utils"
 }

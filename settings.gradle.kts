@@ -27,4 +27,6 @@ include(
     ":feature_auth",
     ":feature_onboarding",
     ":feature_home",
+
+    ":test_utils",
 )
