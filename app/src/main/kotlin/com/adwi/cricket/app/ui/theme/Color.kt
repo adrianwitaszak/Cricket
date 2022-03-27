@@ -1,4 +1,4 @@
-package com.adwi.cricket.ui.theme
+package com.adwi.cricket.app.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -7,7 +7,7 @@ buildscript {
     dependencies {
         classpath(Gradle.gradle)
         classpath(Kotlin.kotlinGradle)
-//        classpath(Hilt.gradle)
+        classpath(Hilt.gradle)
         classpath(Google.services)
     }
 }

@@ -1,13 +1,13 @@
+import com.android.aaptcompiler.compileResource
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.KOTLIN_ANDROID)
-//    kotlin(Plugins.KOTLIN_KAPT)
-//    id(Plugins.HILT)
+    kotlin(Plugins.KOTLIN_KAPT)
     id(Plugins.GOOGLE_SERVICES)
+    id(Plugins.HILT)
 }
-
 android {
     namespace = AndroidConfig.applicationId
     compileSdk = AndroidConfig.compileSdk
@@ -30,7 +30,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro")
+                    "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -38,24 +38,24 @@ android {
         targetCompatibility = AndroidConfig.javaVersionName
     }
 }
-
 tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
         jvmTarget = AndroidConfig.javaVersion
         freeCompilerArgs = listOf(
-            "-Xskip-prerelease-check",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xskip-prerelease-check",
+                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
         )
     }
 }
-
-//kapt {
-//    correctErrorTypes = true
-//}
+kapt {
+    correctErrorTypes = true
+}
 
 dependencies {
     with(Modules) {
         implementation(project(MODEL))
+        implementation(project(DATASOURCE))
         implementation(project(AUTH))
         implementation(project(ONBOARDING))
         implementation(project(HOME))
@@ -66,26 +66,23 @@ dependencies {
         implementation(auth)
         implementation(analytics)
     }
-    with(Koin) {
-        implementation(android)
-        implementation(compose)
+    with(Hilt) {
+        implementation(core)
+        implementation(navigationCompose)
+        kapt(compiler)
     }
-//    with(Hilt) {
-//        kapt(compiler)
-//        implementation(core)
-//        implementation(navigationCompose)
-//    }
     with(Android) {
         implementation(timber)
         implementation(coreKtx)
         implementation(appcompat)
         implementation(lifecycle)
         implementation(composeUi)
+        implementation(composeTooling)
         implementation(composeActivity)
         implementation(composeMaterial)
-        implementation(composeMaterial3)
         implementation(composeNavigation)
         implementation(accompanistInsets)
+        debugImplementation(composeToolingDebug)
         implementation(accompanistNavigationAnimation)
         implementation(accompanistSystemUiController)
     }

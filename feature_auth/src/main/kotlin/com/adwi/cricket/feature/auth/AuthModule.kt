@@ -1,11 +1,17 @@
 package com.adwi.cricket.feature.auth
 
-import com.adwi.cricket.feature.auth.ui.AuthViewModel
 import com.google.firebase.auth.FirebaseAuth
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
-val authModule = module {
-    single { FirebaseAuth.getInstance() }
-    viewModel { AuthViewModel(get(), get()) }
+@Module
+@InstallIn(SingletonComponent::class)
+object AuthModule {
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 }

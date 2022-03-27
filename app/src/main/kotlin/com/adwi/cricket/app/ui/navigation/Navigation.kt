@@ -1,8 +1,6 @@
-package com.adwi.cricket.ui.navigation
+package com.adwi.cricket.app.ui.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
@@ -32,7 +30,6 @@ fun NavGraphBuilder.cricketNavGraph(
         route = MainDestinations.AUTH_ROUTE,
     ) { backStackEntry ->
         val viewModel = hiltViewModel<AuthViewModel>(backStackEntry)
-        val state by viewModel.state.collectAsState()
         AuthScreen(
             viewModel = viewModel,
             appName = stringResource(id = R.string.app_name),

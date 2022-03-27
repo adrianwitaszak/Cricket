@@ -18,25 +18,15 @@ object Kotlin {
         "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesVersion"
 }
 
-object Koin {
-    private const val version = "3.2.0-beta-1"
-    const val android = "io.insert-koin:koin-android:$version"
-    const val workManager = "io.insert-koin:koin-androidx-workmanager:$version"
-    const val compose = "io.insert-koin:koin-androidx-compose:$version"
-    const val test = "io.insert-koin:koin-test:$version"
-    const val junit = "io.insert-koin:koin-test-junit4:$version"
+object Hilt {
+    private const val version = "2.38.1"
+    private const val navigationComposeVersion = "1.0.0"
 
+    const val gradle = "com.google.dagger:hilt-android-gradle-plugin:$version"
+    const val core = "com.google.dagger:hilt-android:$version"
+    const val compiler = "com.google.dagger:hilt-android-compiler:$version"
+    const val navigationCompose = "androidx.hilt:hilt-navigation-compose:$navigationComposeVersion"
 }
-
-//object Hilt {
-//    private const val version = "2.38.1"
-//    private const val navigationComposeVersion = "1.0.0"
-//
-//    const val gradle = "com.google.dagger:hilt-android-gradle-plugin:$version"
-//    const val core = "com.google.dagger:hilt-android:$version"
-//    const val compiler = "com.google.dagger:hilt-android-compiler:$version"
-//    const val navigationCompose = "androidx.hilt:hilt-navigation-compose:$navigationComposeVersion"
-//}
 
 object Room {
     private const val version = "2.4.2"
@@ -88,7 +78,8 @@ object Android {
     const val composeUiUtil = "androidx.compose.ui:ui-util:${Versions.Android.composeUi}"
     const val composePreview =
         "androidx.compose.ui:ui-tooling-preview:${Versions.Android.composeUi}"
-    const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.Android.composeTooling}"
+    const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.Android.composeTooling}"
+    const val composeToolingDebug = "androidx.compose.ui:ui-tooling:${Versions.Android.composeTooling}"
     const val composeFoundation =
         "androidx.compose.foundation:foundation:${Versions.Android.composeUi}"
     const val composeFoundationLayout =
