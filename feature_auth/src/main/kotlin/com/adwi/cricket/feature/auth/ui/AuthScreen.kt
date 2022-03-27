@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,11 +27,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
+import org.koin.androidx.compose.get
 import timber.log.Timber
+
+const val TEST_TAG_AUTH_SIGN_IN_BUTTON = "sign_in_button"
+const val TEST_TAG_AUTH_HEADER = "header"
+const val TEST_TAG_AUTH_BY_CONTINUING = "by_continuing"
+const val TEST_TAG_AUTH_PROGRESS = "progress"
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel,
+    viewModel: AuthViewModel = get(),
     appName: String,
     goHome: () -> Unit,
 ) {
@@ -102,7 +109,7 @@ fun AuthScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             AnimatedVisibility(visible = loadingState is LoadingState.LOADING) {
-                CircularProgressIndicator()
+                CircularProgressIndicator(modifier = Modifier.testTag(TEST_TAG_AUTH_PROGRESS))
             }
             Column(
                 modifier = Modifier
@@ -112,15 +119,18 @@ fun AuthScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 content = {
                     Spacer(modifier = Modifier.height(50.dp))
-                    AuthHeader(appName = appName)
+                    AuthHeader(
+                        modifier = Modifier.testTag(TEST_TAG_AUTH_HEADER),
+                        appName = appName)
                     Spacer(modifier = Modifier.weight(1f))
-                    GoogleSigningButton { launcher.launch(googleSignInClient.signInIntent) }
-                    Button(onClick = goHome) {
-                        Text(text = "Go home")
-                    }
+                    GoogleSigningButton(
+                        modifier = Modifier.testTag(TEST_TAG_AUTH_SIGN_IN_BUTTON)
+                    ) { launcher.launch(googleSignInClient.signInIntent) }
                     Spacer(modifier = Modifier.size(12.dp))
                     Text(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .testTag(TEST_TAG_AUTH_BY_CONTINUING),
                         textAlign = TextAlign.Center,
                         fontSize = 6.sp,
                         fontWeight = FontWeight.Light,

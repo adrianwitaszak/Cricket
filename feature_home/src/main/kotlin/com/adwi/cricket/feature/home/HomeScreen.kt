@@ -6,11 +6,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
+import org.koin.androidx.compose.get
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel,
-    onSignOutClick: () -> Unit
+    viewModel: HomeViewModel = get(),
+    onSignOutClick: () -> Unit,
 ) {
 
     Column {

@@ -5,10 +5,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.adwi.cricket.feature.onboarding.components.NavigateBack
 import com.adwi.cricket.feature.onboarding.components.NavigateNext
+import org.koin.androidx.compose.get
 
 @Composable
 fun OnBoardingScreen(
-    viewModel: OnBoardingViewModel,
+    viewModel: OnBoardingViewModel = get(),
     onOnBoardingFinishedClick: () -> Unit,
 ) {
     val questions by viewModel.questions.collectAsState()

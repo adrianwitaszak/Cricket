@@ -3,7 +3,6 @@ package com.adwi.cricket.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
@@ -17,13 +16,10 @@ import com.adwi.cricket.app.ui.navigation.rememberMyAppState
 import com.adwi.cricket.app.ui.theme.CricketTheme
 import com.adwi.cricket.feature.auth.ui.AuthViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.compose.inject
 
 @OptIn(ExperimentalAnimationApi::class)
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +28,7 @@ class MainActivity : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background) {
 
+                    val authViewModel: AuthViewModel by inject()
                     val appState = rememberMyAppState()
                     val user by authViewModel.user.collectAsState()
 

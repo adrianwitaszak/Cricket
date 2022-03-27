@@ -4,9 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.KOTLIN_ANDROID)
-    kotlin(Plugins.KOTLIN_KAPT)
     id(Plugins.GOOGLE_SERVICES)
-    id(Plugins.HILT)
 }
 android {
     namespace = AndroidConfig.applicationId
@@ -17,7 +15,8 @@ android {
         targetSdk = AndroidConfig.targetSdk
         versionCode = AndroidConfig.versionCode
         versionName = AndroidConfig.versionName
-        testInstrumentationRunner = AndroidConfig.testInstrumentationRunner
+        testInstrumentationRunner = "com.adwi.cricket.androidtest.HiltTestRunner"
+//            AndroidConfig.hiltTestRunner
     }
     buildFeatures {
         compose = true
@@ -30,7 +29,7 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro")
+                "proguard-rules.pro")
         }
     }
     compileOptions {
@@ -42,29 +41,25 @@ tasks.withType<KotlinCompile>().configureEach {
     kotlinOptions {
         jvmTarget = AndroidConfig.javaVersion
         freeCompilerArgs = listOf(
-                "-Xskip-prerelease-check",
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
+            "-Xskip-prerelease-check",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
         )
     }
-}
-kapt {
-    correctErrorTypes = true
 }
 
 dependencies {
     with(Modules) {
         implementation(project(MODEL))
+        implementation(project(CORE))
         implementation(project(DATASOURCE))
         implementation(project(AUTH))
         implementation(project(ONBOARDING))
         implementation(project(HOME))
+        implementation(project(TEST_UTILS))
     }
-    with(Hilt) {
-        implementation(core)
-        implementation(navigationCompose)
-        kapt(compiler)
-    }
+    implementation(Koin.compose)
+    addFirebaseAuthDependency()
     with(Android) {
         implementation(timber)
         implementation(coreKtx)
@@ -81,4 +76,6 @@ dependencies {
         implementation(accompanistNavigationAnimation)
         implementation(accompanistSystemUiController)
     }
+    addAndroidTestDependencies()
+    addTestDependencies()
 }

@@ -1,7 +1,6 @@
 package com.adwi.cricket.app.ui.navigation
 
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavDestination
@@ -15,6 +14,7 @@ import com.adwi.cricket.feature.home.HomeViewModel
 import com.adwi.cricket.feature.onboarding.screens.OnBoardingScreen
 import com.adwi.cricket.feature.onboarding.screens.OnBoardingViewModel
 import com.google.accompanist.navigation.animation.composable
+import org.koin.androidx.compose.inject
 
 fun NavGraphBuilder.cricketNavGraph(
     onOnBoardingFinishedClick: () -> Unit,
@@ -22,7 +22,7 @@ fun NavGraphBuilder.cricketNavGraph(
     goHome: () -> Unit,
 ) {
     composable(MainDestinations.HOME) { backStackEntry ->
-        val viewModel = hiltViewModel<HomeViewModel>(backStackEntry)
+        val viewModel: HomeViewModel by inject()
         HomeScreen(
             viewModel = viewModel,
             onSignOutClick = onSignOutClick
@@ -31,7 +31,7 @@ fun NavGraphBuilder.cricketNavGraph(
     composable(
         route = MainDestinations.AUTH,
     ) { backStackEntry ->
-        val viewModel = hiltViewModel<AuthViewModel>(backStackEntry)
+        val viewModel: AuthViewModel by inject()
         AuthScreen(
             viewModel = viewModel,
             appName = stringResource(id = R.string.app_name),
@@ -41,7 +41,7 @@ fun NavGraphBuilder.cricketNavGraph(
     composable(
         route = MainDestinations.ONBOARDING,
     ) { backStackEntry ->
-        val viewModel = hiltViewModel<OnBoardingViewModel>(backStackEntry)
+        val viewModel: OnBoardingViewModel by inject()
         OnBoardingScreen(
             viewModel = viewModel,
             onOnBoardingFinishedClick = onOnBoardingFinishedClick

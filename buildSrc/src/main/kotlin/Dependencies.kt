@@ -18,14 +18,23 @@ object Kotlin {
         "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesVersion"
 }
 
-object Hilt {
-    private const val version = "2.38.1"
-    private const val navigationComposeVersion = "1.0.0"
+//object Hilt {
+//    private const val version = "2.38.1"
+//    private const val navigationComposeVersion = "1.0.0"
+//
+//    const val gradle = "com.google.dagger:hilt-android-gradle-plugin:$version"
+//    const val core = "com.google.dagger:hilt-android:$version"
+//    const val compiler = "com.google.dagger:hilt-android-compiler:$version"
+//    const val navigationCompose = "androidx.hilt:hilt-navigation-compose:$navigationComposeVersion"
+//
+//    const val test = "com.google.dagger:hilt-android-testing:$version"
+//}
 
-    const val gradle = "com.google.dagger:hilt-android-gradle-plugin:$version"
-    const val core = "com.google.dagger:hilt-android:$version"
-    const val compiler = "com.google.dagger:hilt-android-compiler:$version"
-    const val navigationCompose = "androidx.hilt:hilt-navigation-compose:$navigationComposeVersion"
+object Koin {
+    private const val version = "3.2.0-beta-1"
+    const val android = "io.insert-koin:koin-android:$version"
+    const val compose = "io.insert-koin:koin-androidx-compose:$version"
+    const val workManager = "io.insert-koin:koin-androidx-workmanager:$version"
 }
 
 object Room {
@@ -79,8 +88,10 @@ object Android {
     const val composeUiUtil = "androidx.compose.ui:ui-util:${Versions.Android.composeUi}"
     const val composePreview =
         "androidx.compose.ui:ui-tooling-preview:${Versions.Android.composeUi}"
-    const val composeTooling = "androidx.compose.ui:ui-tooling-preview:${Versions.Android.composeTooling}"
-    const val composeToolingDebug = "androidx.compose.ui:ui-tooling:${Versions.Android.composeTooling}"
+    const val composeTooling =
+        "androidx.compose.ui:ui-tooling-preview:${Versions.Android.composeTooling}"
+    const val composeToolingDebug =
+        "androidx.compose.ui:ui-tooling:${Versions.Android.composeTooling}"
     const val composeFoundation =
         "androidx.compose.foundation:foundation:${Versions.Android.composeUi}"
     const val composeFoundationLayout =
@@ -120,6 +131,14 @@ object Android {
 }
 
 object TestDependencies {
+    const val coroutinesTest =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Kotlin.coroutinesVersion}"
+
+    const val composeAndroidTest = "androidx.compose.ui:ui-test-junit4:${Versions.Android.composeUi}"
+    const val composeDebugTest = "androidx.compose.ui:ui-test-manifest:${Versions.Android.composeUi}"
+
+    const val testRunner = "androidx.test:runner:1.4.0"
+
     // Core library
     const val junit4Ktx = "androidx.test.ext:junit:${Versions.Android.junit4Ktx}"
     const val junit4 = "junit:junit:${Versions.Android.junit4}"
@@ -127,36 +146,31 @@ object TestDependencies {
     const val archCore = "androidx.arch.core:core-testing:${Versions.Android.arch_core}"
 
     // Espresso dependencies
-    const val espresso_core =
-        "androidx.test.espresso:espresso-core:${Versions.Android.espresso_core}"
+//    const val espresso_core =
+//        "androidx.test.espresso:espresso-core:${Versions.Android.espresso_core}"
 
     // Coroutines
-    const val coroutinesTest =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Kotlin.coroutinesVersion}"
-    const val turbine = "app.cash.turbine:turbine:${Versions.Android.turbine}"
-
-    // Assertions
-    const val kotest = "io.kotest:kotest-assertions-core:${Versions.Android.kotest}"
+//    const val turbine = "app.cash.turbine:turbine:${Versions.Android.turbine}"
 
     // JUnit5
-    const val jupiterApi = "org.junit.jupiter:junit-jupiter-api:${Versions.Android.junit5}"
-    const val jupiterEngineRuntimeOnly =
-        "org.junit.jupiter:junit-jupiter-engine:${Versions.Android.junit5}"
-    const val jupiterParams =
-        "org.junit.jupiter:junit-jupiter-params:${Versions.Android.junit5}"
-    const val jupiterVintageRuntimeOnly =
-        "org.junit.vintage:junit-vintage-engine:${Versions.Android.junit5}"
+//    const val jupiterApi = "org.junit.jupiter:junit-jupiter-api:${Versions.Android.junit5}"
+//    const val jupiterEngineRuntimeOnly =
+//        "org.junit.jupiter:junit-jupiter-engine:${Versions.Android.junit5}"
+//    const val jupiterParams =
+//        "org.junit.jupiter:junit-jupiter-params:${Versions.Android.junit5}"
+//    const val jupiterVintageRuntimeOnly =
+//        "org.junit.vintage:junit-vintage-engine:${Versions.Android.junit5}"
 
-    const val test_runner = "androidx.test:runner:${Versions.Android.test_core}"
-    const val rules = "androidx.test:rules:${Versions.Android.rules}"
-
-    const val kotlin_junit =
-        "org.jetbrains.kotlin:kotlin-test-junit:${Kotlin.kotlinVersion}"
+    //    const val test_runner = "androidx.test:runner:${Versions.Android.test_core}"
+//    const val rules = "androidx.test:rules:${Versions.Android.rules}"
+//
+//    const val kotlin_junit =
+//        "org.jetbrains.kotlin:kotlin-test-junit:${Kotlin.kotlinVersion}"
     const val truth = "com.google.truth:truth:${Versions.Android.GoogleTruth}"
-    const val GoogleTruth = "androidx.test.ext:truth:${Versions.Android.XTruth}"
+//    const val GoogleTruth = "androidx.test.ext:truth:${Versions.Android.XTruth}"
 
     const val mockk = "io.mockk:mockk:${Versions.Android.mockk}"
-    const val mockito = "org.mockito.kotlin:mockito-kotlin:${Versions.Android.mockito}"
+//    const val mockito = "org.mockito.kotlin:mockito-kotlin:${Versions.Android.mockito}"
 
     // Work
     const val work = "androidx.work:work-testing:${Versions.Android.workManager}"

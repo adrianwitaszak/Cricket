@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    suspend fun signInWithCredential(credential: AuthCredential): AuthResult?
+    suspend fun signInWithCredential(credential: AuthCredential): User?
 
-    fun signOut()
+    fun signOut(): User?
 
     fun getCurrentUser(): Flow<User?>
 }

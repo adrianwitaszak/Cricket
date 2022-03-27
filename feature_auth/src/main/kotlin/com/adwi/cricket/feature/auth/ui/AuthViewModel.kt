@@ -3,20 +3,16 @@ package com.adwi.cricket.feature.auth.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adwi.cricket.core.LoadingState
-import com.adwi.cricket.datasource.mapper.toUser
-import com.adwi.cricket.datasource.repository.UserRepositoryImpl
+import com.adwi.cricket.datasource.repository.UserRepository
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
-@HiltViewModel
-class AuthViewModel @Inject constructor(
-    private val userRepository: UserRepositoryImpl,
+class AuthViewModel(
+    private val userRepository: UserRepository,
 ) : ViewModel() {
 
     private var _loadingState: MutableStateFlow<LoadingState> = MutableStateFlow(LoadingState.IDLE)
@@ -54,14 +50,10 @@ class AuthViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _loadingState.value = LoadingState.LOADING
-                val authResult = userRepository.signInWithCredential(credential)
-                if (authResult?.user == null) {
-                    _loadingState.value = LoadingState.FAILED(msg = "Login Failed")
-                    return@launch
-                } else {
-                    _loadingState.value = LoadingState.SUCCESS
-                    _user.value = authResult.user?.toUser()
-                }
+                val result = userRepository.signInWithCredential(credential)
+                _user.value = result
+                _loadingState.value = if (result == null)
+                    LoadingState.FAILED(msg = "Login Failed") else LoadingState.SUCCESS
             } catch (e: Exception) {
                 _loadingState.value = LoadingState.FAILED(e.localizedMessage ?: "Login Failed")
             }

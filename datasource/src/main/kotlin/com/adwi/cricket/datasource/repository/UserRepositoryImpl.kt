@@ -10,15 +10,18 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
     ) : UserRepository {
 
-    override suspend fun signInWithCredential(credential: AuthCredential): AuthResult? =
-        firebaseAuth.signInWithCredential(credential).await()
+    override suspend fun signInWithCredential(credential: AuthCredential): User? {
+        val result = firebaseAuth.signInWithCredential(credential).await()
+        return result.user?.toUser()
+    }
 
-    override fun signOut() {
+    override fun signOut(): User? {
         firebaseAuth.signOut()
+        return null
     }
 
     override fun getCurrentUser(): Flow<User?> = flowOf(firebaseAuth.currentUser?.toUser())
