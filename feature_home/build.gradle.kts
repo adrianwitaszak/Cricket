@@ -28,6 +28,9 @@ kapt {
     correctErrorTypes = true
 }
 dependencies {
+    with(Modules) {
+        implementation(project(DATASOURCE))
+    }
     with(Firebase) {
         implementation(platform(bom))
         implementation(analytics)

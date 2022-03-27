@@ -60,12 +60,6 @@ dependencies {
         implementation(project(ONBOARDING))
         implementation(project(HOME))
     }
-    implementation(Google.auth)
-    with(Firebase) {
-        implementation(platform(bom))
-        implementation(auth)
-        implementation(analytics)
-    }
     with(Hilt) {
         implementation(core)
         implementation(navigationCompose)
@@ -80,6 +74,7 @@ dependencies {
         implementation(composeTooling)
         implementation(composeActivity)
         implementation(composeMaterial)
+        implementation(lifecycle)
         implementation(composeNavigation)
         implementation(accompanistInsets)
         debugImplementation(composeToolingDebug)

@@ -1,8 +1,8 @@
 package com.adwi.cricket.feature.auth.ui
 
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @Composable
 fun AuthScreen(
@@ -34,23 +35,9 @@ fun AuthScreen(
     goHome: () -> Unit,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-    val state by viewModel.state.collectAsState()
+    val loadingState by viewModel.loadingState.collectAsState()
+    val user by viewModel.user.collectAsState()
     val coroutineScope = rememberCoroutineScope()
-
-    if (state.user != null) {
-        goHome()
-    }
-
-    when (val loadingState = state.loadingState) {
-        is LoadingState.FAILED -> {
-            LaunchedEffect(loadingState.msg != null) {
-                coroutineScope.launch {
-                    snackbarHostState.showSnackbar(loadingState.msg ?: "")
-                }
-            }
-        }
-        else -> {}
-    }
 
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
@@ -58,9 +45,9 @@ fun AuthScreen(
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
-                viewModel.intent(AuthScreenEvent.SignWithCredential(credential))
+                viewModel.signInWithGoogle(credential)
             } catch (e: ApiException) {
-                Log.w("TAG", "Google sign in failed", e)
+                Timber.tag("TAG").w(e, "Google sign in failed")
             }
         }
 
@@ -73,6 +60,27 @@ fun AuthScreen(
             .build()
 
     val googleSignInClient = GoogleSignIn.getClient(context, gso)
+
+//    if (user != null) {
+//        goHome()
+//    }
+
+    when (loadingState) {
+        is LoadingState.FAILED -> {
+            val message = stringResource(id = R.string.login_failed)
+            LaunchedEffect(true) {
+                coroutineScope.launch {
+                    snackbarHostState.showSnackbar(message)
+                }
+            }
+            Timber.d("AuthScreen - failed")
+        }
+        is LoadingState.SUCCESS -> {
+            goHome()
+            Timber.d("AuthScreen - goHome")
+        }
+        else -> {}
+    }
 
     Scaffold(
         scaffoldState = rememberScaffoldState(snackbarHostState = snackbarHostState),
@@ -89,48 +97,43 @@ fun AuthScreen(
                     )
                 }
             }
-            if (state.loadingState is LoadingState.LOADING) {
+            if (loadingState is LoadingState.LOADING) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         },
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            content = {
-                Spacer(modifier = Modifier.height(50.dp))
-                AuthHeader(appName = appName)
-                Spacer(modifier = Modifier.weight(1f))
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    onClick = {
-                        viewModel.intent(AuthScreenEvent.StartWithoutSignIn)
-                    },
-                ) {
-                    Text(text = "Start Without Signing In")
-                }
-                GoogleSigningButton { launcher.launch(googleSignInClient.signInIntent) }
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 6.sp,
-                    fontWeight = FontWeight.Light,
-                    text = "Login with"
-                )
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 6.sp,
-                    fontWeight = FontWeight.Light,
-                    text = "By continuing, you agree to the Digital Designs Terms Of Service and Privacy Policy"
-                )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            AnimatedVisibility(visible = loadingState is LoadingState.LOADING) {
+                CircularProgressIndicator()
             }
-        )
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(18.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                content = {
+                    Spacer(modifier = Modifier.height(50.dp))
+                    AuthHeader(appName = appName)
+                    Spacer(modifier = Modifier.weight(1f))
+                    GoogleSigningButton { launcher.launch(googleSignInClient.signInIntent) }
+                    Button(onClick = goHome) {
+                        Text(text = "Go home")
+                    }
+                    Spacer(modifier = Modifier.size(12.dp))
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 6.sp,
+                        fontWeight = FontWeight.Light,
+                        text = stringResource(id = R.string.by_continuing)
+                    )
+                }
+            )
+        }
     }
 }
 

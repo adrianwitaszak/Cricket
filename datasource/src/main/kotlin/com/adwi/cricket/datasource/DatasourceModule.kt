@@ -1,15 +1,14 @@
 package com.adwi.cricket.datasource
 
-import android.content.Context
-import androidx.room.Room
-import com.adwi.cricket.datasource.local.CricketDatabase
-import com.adwi.cricket.datasource.local.dao.UserDao
 import com.adwi.cricket.datasource.repository.UserRepository
 import com.adwi.cricket.datasource.repository.UserRepositoryImpl
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -17,24 +16,23 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatasourceModule {
 
-    @Provides
-    @Singleton
-    fun provideUserDatabase(@ApplicationContext context: Context): CricketDatabase =
-        Room
-            .databaseBuilder(
-                context,
-                CricketDatabase::class.java,
-                "CRICKET_DATABASE"
-            )
-            .fallbackToDestructiveMigration()
-            .build()
 
     @Provides
     @Singleton
-    fun provideUserDao(database: CricketDatabase): UserDao = database.userDao()
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 
     @Provides
     @Singleton
-    fun provideUserRepository(database: CricketDatabase): UserRepository =
-        UserRepositoryImpl(database)
+    fun provideFirebase(): Firebase = Firebase
+
+    @Provides
+    @Singleton
+    fun provideCloudFirestore(): FirebaseFirestore = Firebase.firestore
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(
+        firebaseAuth: FirebaseAuth,
+    ): UserRepository =
+        UserRepositoryImpl(firebaseAuth)
 }

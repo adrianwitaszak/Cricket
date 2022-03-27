@@ -7,13 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 object MainDestinations {
-    const val AUTH_ROUTE = "auth"
-    const val ONBOARDING_ROUTE = "onboarding"
-    const val HOME_ROUTE = "home"
+    const val AUTH = "auth"
+    const val ONBOARDING = "onboarding"
+    const val HOME = "home"
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -31,13 +30,6 @@ class PexAppState(
     val scaffoldState: ScaffoldState,
     val navController: NavHostController,
 ) {
-    val bottomBarTabs = HomeSections.values()
-    private val bottomBarRoutes = bottomBarTabs.map { it.route }
-
-    val shouldShowBottomBar: Boolean
-        @Composable get() = navController
-            .currentBackStackEntryAsState().value?.destination?.route in bottomBarRoutes
-
     val currentRoute: String?
         get() = navController.currentDestination?.route
 
@@ -46,17 +38,22 @@ class PexAppState(
     }
 
     fun navigateToOnBoarding() {
-            navController.navigate(MainDestinations.ONBOARDING_ROUTE)
-        TODO("set pop to")
+        navController.navigate(MainDestinations.ONBOARDING)
     }
 
-    fun navigateToHome() {
-            navController.navigate(MainDestinations.HOME_ROUTE)
-//            TODO("set pop to")
+    fun navigateToHome(fromAuth: Boolean = false) {
+        navController.navigate(MainDestinations.HOME) {
+            if (fromAuth) {
+                popUpTo(MainDestinations.HOME) { inclusive = true }
+            }
+            launchSingleTop = true
+        }
     }
 
     fun navigateToAuth() {
-            navController.navigate(MainDestinations.AUTH_ROUTE)
-//            TODO("set pop to")
+        navController.navigate(MainDestinations.AUTH) {
+            popUpTo(MainDestinations.AUTH) { inclusive = true }
+
+        }
     }
 }

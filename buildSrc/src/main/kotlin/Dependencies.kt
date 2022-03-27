@@ -50,6 +50,7 @@ object Firebase {
     const val crashlytics = "com.google.firebase:firebase-crashlytics"
     const val cloudMessaging = "com.google.firebase:firebase-messaging"
     const val dynamicFeature = "com.google.firebase:firebase-dynamic-module-support"
+    const val cloudFirestore = "com.google.firebase:firebase-firestore-ktx"
 }
 
 object Android {

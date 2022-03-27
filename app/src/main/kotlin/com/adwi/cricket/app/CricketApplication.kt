@@ -2,6 +2,7 @@ package com.adwi.cricket.app
 
 import android.app.Application
 import com.adwi.cricket.BuildConfig
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 

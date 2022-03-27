@@ -3,6 +3,7 @@ plugins {
     kotlin(Plugins.KOTLIN_ANDROID)
     kotlin(Plugins.KOTLIN_KAPT)
     id(Plugins.HILT)
+    id(Plugins.GOOGLE_SERVICES)
 }
 
 android {
@@ -26,13 +27,19 @@ dependencies {
     with(Modules) {
         implementation(project(MODEL))
     }
+    api(Google.auth)
+    with(Firebase) {
+        implementation(platform(bom))
+        api(auth)
+        implementation(analytics)
+        implementation(cloudFirestore)
+        implementation(cloudMessaging)
+    }
+    with(Kotlin) {
+        implementation(coroutinesPlayServices)
+    }
     with(Hilt) {
         implementation(core)
-        kapt(compiler)
-    }
-    with(Room) {
-        api(ktx)
-        api(runtime)
         kapt(compiler)
     }
 }

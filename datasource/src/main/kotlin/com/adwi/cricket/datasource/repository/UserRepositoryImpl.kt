@@ -1,28 +1,28 @@
 package com.adwi.cricket.datasource.repository
 
-import com.adwi.cricket.datasource.local.CricketDatabase
-import com.adwi.cricket.datasource.mapper.toDomain
-import com.adwi.cricket.datasource.mapper.toEntity
-import com.adwi.cricket.model.User
+import android.content.Context
+import com.google.android.gms.tasks.Task
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    database: CricketDatabase,
-) : UserRepository {
+    private val firebaseAuth: FirebaseAuth,
+    ) : UserRepository {
 
-    private val userDao = database.userDao()
+    override suspend fun signInWithCredential(credential: AuthCredential): AuthResult? =
+        firebaseAuth.signInWithCredential(credential).await()
 
-    override suspend fun addUser(user: User) {
-        userDao.insertUser(user.toEntity())
+    override fun signOut() {
+        firebaseAuth.signOut()
     }
 
-    override suspend fun updateUser(user: User) {
-        userDao.updateUser(user.toEntity())
-    }
-
-    override fun getUser(): Flow<User?> = userDao.getUser().map { it.toDomain() }
-
+    override fun getCurrentUser(): Flow<FirebaseUser?> = flowOf(firebaseAuth.currentUser)
 }
