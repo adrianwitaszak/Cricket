@@ -99,7 +99,7 @@ fun AuthScreen(
                     )
                 }
             }
-            if (loadingState is LoadingState.LOADING) {
+            if (loadingState is LoadingState.Loading) {
                 LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
             }
         },
@@ -108,7 +108,7 @@ fun AuthScreen(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            AnimatedVisibility(visible = loadingState is LoadingState.LOADING) {
+            AnimatedVisibility(visible = loadingState is LoadingState.Loading) {
                 CircularProgressIndicator(modifier = Modifier.testTag(TEST_TAG_AUTH_PROGRESS))
             }
             Column(

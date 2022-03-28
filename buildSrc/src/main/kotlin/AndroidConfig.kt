@@ -13,3 +13,4 @@ object AndroidConfig {
     const val javaVersion = "1.8"
     val javaVersionName = JavaVersion.VERSION_1_8
 }
+

@@ -28,7 +28,9 @@ dependencies {
         implementation(project(DATASOURCE))
         implementation(project(TEST_UTILS))
     }
-    addFirebaseAuthDependency()
+    implementation(Firebase.bom)
+    implementation(Google.auth)
+    implementation(Firebase.auth)
     with(Kotlin) {
         implementation(coroutinesAndroid)
     }

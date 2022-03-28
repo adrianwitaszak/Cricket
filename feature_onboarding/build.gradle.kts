@@ -23,10 +23,6 @@ android {
     }
 }
 dependencies {
-    with(Firebase) {
-        implementation(platform(bom))
-        implementation(analytics)
-    }
     with(Kotlin) {
         implementation(coroutinesCore)
         implementation(coroutinesAndroid)

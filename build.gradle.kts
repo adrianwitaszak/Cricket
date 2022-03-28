@@ -8,5 +8,6 @@ buildscript {
         classpath(Gradle.gradle)
         classpath(Kotlin.kotlinGradle)
         classpath(Google.services)
+        classpath(Firebase.crashlyticsGradle)
     }
 }

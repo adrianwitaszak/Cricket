@@ -5,7 +5,6 @@ fun DependencyHandler.addFirebaseAuthDependency() {
     implementation(Google.auth)
     implementation(platform(Firebase.bom))
     implementation(Firebase.auth)
-    implementation(Firebase.analytics)
 }
 
 fun DependencyHandler.addAndroidTestDependencies() {
@@ -16,6 +15,12 @@ fun DependencyHandler.addAndroidTestDependencies() {
 
 fun DependencyHandler.addTestDependencies() {
     addCommonTestDependencies()
+}
+
+fun DependencyHandler.addCrashlyticsAnalyticsDependencies() {
+    implementation(platform(Firebase.bom))
+    implementation(Firebase.analytics)
+    implementation(Firebase.crashlytics)
 }
 
 private fun DependencyHandler.addCommonTestDependencies() {

@@ -18,18 +18,6 @@ object Kotlin {
         "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutinesVersion"
 }
 
-//object Hilt {
-//    private const val version = "2.38.1"
-//    private const val navigationComposeVersion = "1.0.0"
-//
-//    const val gradle = "com.google.dagger:hilt-android-gradle-plugin:$version"
-//    const val core = "com.google.dagger:hilt-android:$version"
-//    const val compiler = "com.google.dagger:hilt-android-compiler:$version"
-//    const val navigationCompose = "androidx.hilt:hilt-navigation-compose:$navigationComposeVersion"
-//
-//    const val test = "com.google.dagger:hilt-android-testing:$version"
-//}
-
 object Koin {
     private const val version = "3.2.0-beta-1"
     const val android = "io.insert-koin:koin-android:$version"
@@ -53,10 +41,12 @@ object Google {
 
 object Firebase {
     private const val version = "29.2.1"
+    private const val crashlyticsGradleVersion = "2.8.1"
     const val bom = "com.google.firebase:firebase-bom:$version"
     const val auth = "com.google.firebase:firebase-auth-ktx"
     const val analytics = "com.google.firebase:firebase-auth-ktx"
     const val crashlytics = "com.google.firebase:firebase-crashlytics"
+    const val crashlyticsGradle = "com.google.firebase:firebase-crashlytics-gradle:$crashlyticsGradleVersion"
     const val cloudMessaging = "com.google.firebase:firebase-messaging"
     const val dynamicFeature = "com.google.firebase:firebase-dynamic-module-support"
     const val cloudFirestore = "com.google.firebase:firebase-firestore-ktx"

@@ -29,7 +29,7 @@ object FakeDatasourceModule {
             hasCompletedOnBoarding = false
         )
 
-        override fun getCurrentUser(): Flow<User?> = flowOf(null)
+        override fun getSignedInUser(): Flow<User?> = flowOf(null)
         override suspend fun signInWithCredential(credential: AuthCredential): User = user
         override fun signOut(): User? = null
     }

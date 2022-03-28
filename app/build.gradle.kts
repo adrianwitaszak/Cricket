@@ -5,6 +5,7 @@ plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.KOTLIN_ANDROID)
     id(Plugins.GOOGLE_SERVICES)
+    id(Plugins.CRASHLYTICS)
 }
 android {
     namespace = AndroidConfig.applicationId
@@ -60,6 +61,7 @@ dependencies {
     }
     implementation(Koin.compose)
     addFirebaseAuthDependency()
+    addCrashlyticsAnalyticsDependencies()
     with(Android) {
         implementation(timber)
         implementation(coreKtx)

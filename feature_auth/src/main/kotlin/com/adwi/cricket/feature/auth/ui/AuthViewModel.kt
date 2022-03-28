@@ -3,16 +3,20 @@ package com.adwi.cricket.feature.auth.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adwi.cricket.core.LoadingState
+import com.adwi.cricket.core.State
+import com.adwi.cricket.datasource.logger.Logger
 import com.adwi.cricket.datasource.repository.UserRepository
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AuthViewModel(
     private val userRepository: UserRepository,
+    private val logger: Logger
 ) : ViewModel() {
 
     private var _loadingState: MutableStateFlow<LoadingState> = MutableStateFlow(LoadingState.IDLE)
@@ -27,18 +31,25 @@ class AuthViewModel(
 
     private fun getCurrentUser() {
         viewModelScope.launch {
-            userRepository.getCurrentUser().collect { firebaseUser ->
-                if (firebaseUser == null) {
-                    _user.value = null
-                    _loadingState.value = LoadingState.IDLE
-                } else {
-                    _user.value = firebaseUser
-                    _loadingState.value = LoadingState.SUCCESS
+            userRepository.getSignedInUser().collectLatest { firebaseUser ->
+                when (firebaseUser) {
+                    is State.Success -> {
+                        _user.value = firebaseUser.data
+                        _loadingState.value = LoadingState.SUCCESS
+                        logger.setUserId(firebaseUser.data?.id ?: "UnknownId")
+                    }
+                    is State.Loading -> {
+                        _loadingState.value = LoadingState.Loading
+                    }
+                    is State.Failed -> {
+                        _user.value = null
+                        _loadingState.value = LoadingState.FAILED(firebaseUser.message)
+                    }
                 }
                 val message = """
                     getCurrentUser -
-                    User = $firebaseUser
-                    Name = ${firebaseUser?.name}
+                    User = ${user.value}
+                    Name = ${user.value?.name}
                     loading = ${loadingState.value}
                 """.trimIndent()
                 Timber.d(message)
@@ -49,7 +60,7 @@ class AuthViewModel(
     fun signInWithGoogle(credential: AuthCredential) {
         viewModelScope.launch {
             try {
-                _loadingState.value = LoadingState.LOADING
+                _loadingState.value = LoadingState.Loading
                 val result = userRepository.signInWithCredential(credential)
                 _user.value = result
                 _loadingState.value = if (result == null)

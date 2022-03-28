@@ -1,7 +1,7 @@
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     kotlin(Plugins.KOTLIN_ANDROID)
-    id(Plugins.GOOGLE_SERVICES)
+    id(Plugins.CRASHLYTICS)
 }
 
 android {
@@ -21,16 +21,20 @@ android {
 dependencies {
     with(Modules) {
         implementation(project(MODEL))
+        implementation(project(CORE))
     }
+    addFirebaseAuthDependency()
+    addCrashlyticsAnalyticsDependencies()
     with(Firebase) {
         implementation(cloudFirestore)
         implementation(cloudMessaging)
     }
     with(Kotlin) {
+        implementation(coroutinesCore)
         implementation(coroutinesPlayServices)
     }
     implementation(Koin.android)
-    addFirebaseAuthDependency()
+    implementation(Android.timber)
     addAndroidTestDependencies()
     addTestDependencies()
 }

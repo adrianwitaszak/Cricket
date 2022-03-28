@@ -18,6 +18,7 @@ class CricketApplication : Application() {
         }
         startKoin {
             modules(
+                appModule,
                 dataSourceModule,
                 authModule,
                 homeModule,
