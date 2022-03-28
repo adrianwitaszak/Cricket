@@ -1,4 +1,4 @@
-package com.adwi.cricket.datasource.mapper
+package com.adwi.cricket.datasource.repository.mapper
 
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.FirebaseUser

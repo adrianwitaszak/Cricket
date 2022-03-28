@@ -1,14 +1,12 @@
 package com.adwi.cricket.datasource.repository
 
-import com.adwi.cricket.datasource.mapper.toUser
+import com.adwi.cricket.datasource.repository.mapper.toUser
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.tasks.await
-import javax.inject.Inject
 
 class UserRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
