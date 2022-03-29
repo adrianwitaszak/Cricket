@@ -25,6 +25,7 @@ dependencies {
     with(Modules) {
         implementation(project(CORE))
         implementation(project(MODEL))
+        implementation(project(COMPONENTS))
         implementation(project(DATASOURCE))
         implementation(project(TEST_UTILS))
     }

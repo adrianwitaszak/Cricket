@@ -53,6 +53,7 @@ dependencies {
         implementation(project(MODEL))
         implementation(project(CORE))
         implementation(project(DATASOURCE))
+        implementation(project(COMPONENTS))
         implementation(project(AUTH))
         implementation(project(ONBOARDING))
         implementation(project(HOME))

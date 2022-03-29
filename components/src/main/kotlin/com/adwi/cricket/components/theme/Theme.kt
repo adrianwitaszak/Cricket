@@ -1,4 +1,4 @@
-package com.adwi.cricket.app.ui.theme
+package com.adwi.cricket.components.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

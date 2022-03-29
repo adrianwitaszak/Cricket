@@ -1,4 +1,4 @@
-package com.adwi.cricket.app.ui.theme
+package com.adwi.cricket.components.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

@@ -1,4 +1,4 @@
-package com.adwi.cricket.app.ui.navigation
+package com.adwi.cricket.app.navigation
 
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons

@@ -23,11 +23,7 @@ android {
     }
 }
 dependencies {
-    with(Kotlin) {
-        implementation(coroutinesCore)
-        implementation(coroutinesAndroid)
-        implementation(coroutinesPlayServices)
-    }
+    implementation(project(Modules.COMPONENTS))
     implementation(Koin.compose)
     with(Android) {
         implementation(lifecycle)
@@ -36,7 +32,6 @@ dependencies {
         implementation(composeTooling)
         implementation(composeFoundation)
         implementation(composeMaterial)
-        implementation(composeMaterial3)
         implementation(composeConstrainLayout)
     }
 }

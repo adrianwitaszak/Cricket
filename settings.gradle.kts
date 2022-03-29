@@ -21,6 +21,7 @@ include(
     ":app",
     ":model",
     ":core",
+    ":components",
 
     ":datasource",
 

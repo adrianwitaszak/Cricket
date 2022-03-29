@@ -1,4 +1,4 @@
-package com.adwi.cricket.app.ui.navigation
+package com.adwi.cricket.app.navigation
 
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle

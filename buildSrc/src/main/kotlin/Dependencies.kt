@@ -56,6 +56,7 @@ object Android {
     const val appcompat = "androidx.appcompat:appcompat:${Versions.Android.appCompat}"
     const val coreKtx = "androidx.core:core-ktx:${Versions.Android.core}"
     const val material = "com.google.android.material:material:${Versions.Android.material}"
+    const val dataStore = "androidx.datastore:datastore:${Versions.Android.dataStore}"
 
     // Lifecycle
     const val lifecycle =

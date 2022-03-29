@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "${AndroidConfig.applicationId}.feature.home"
+    namespace = "${AndroidConfig.applicationId}.components"
     compileSdk = AndroidConfig.compileSdk
     defaultConfig {
         minSdk = AndroidConfig.minSdk
@@ -23,24 +23,16 @@ android {
     }
 }
 dependencies {
-    with(Modules) {
-        implementation(project(DATASOURCE))
-        implementation(project(COMPONENTS))
-    }
-    with(Kotlin) {
-        implementation(coroutinesCore)
-        implementation(coroutinesAndroid)
-        implementation(coroutinesPlayServices)
-    }
-    implementation(Koin.compose)
     with(Android) {
-        implementation(lifecycle)
-        implementation(composeActivity)
         implementation(composeUi)
         implementation(composeTooling)
-        implementation(composeFoundation)
+        implementation(composeActivity)
         implementation(composeMaterial)
-        implementation(composeMaterial3)
+        implementation(composeNavigation)
+        implementation(accompanistInsets)
         implementation(composeConstrainLayout)
+        debugImplementation(composeToolingDebug)
+        implementation(accompanistNavigationAnimation)
+        implementation(accompanistSystemUiController)
     }
 }

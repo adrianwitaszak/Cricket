@@ -11,6 +11,7 @@ object Versions {
         const val paging = "3.0.1"
         const val lifecycle = "2.4.1"
         const val workManager = "2.7.1"
+        const val dataStore = "1.0.0"
 
         // Compose
         const val composeUi = "1.2.0-alpha05"

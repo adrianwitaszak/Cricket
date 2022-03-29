@@ -10,10 +10,10 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.adwi.cricket.app.ui.navigation.MainDestinations
-import com.adwi.cricket.app.ui.navigation.cricketNavGraph
-import com.adwi.cricket.app.ui.navigation.rememberMyAppState
-import com.adwi.cricket.app.ui.theme.CricketTheme
+import com.adwi.cricket.app.navigation.MainDestinations
+import com.adwi.cricket.app.navigation.cricketNavGraph
+import com.adwi.cricket.app.navigation.rememberMyAppState
+import com.adwi.cricket.components.theme.CricketTheme
 import com.adwi.cricket.feature.auth.ui.AuthViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import org.koin.androidx.compose.inject

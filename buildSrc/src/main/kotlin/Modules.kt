@@ -4,6 +4,7 @@ object Modules {
     const val MODEL = ":model"
     const val CORE = ":core"
     const val DATASOURCE = ":datasource"
+    const val COMPONENTS = ":components"
 
     // Features
     const val AUTH = ":feature_auth"
