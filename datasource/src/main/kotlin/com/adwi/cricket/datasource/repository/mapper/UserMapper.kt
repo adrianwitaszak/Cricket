@@ -15,7 +15,7 @@ class UserMapper(
             val email = firebaseUser.email.orEmpty()
             User(id, name, email)
         } catch (exception: Exception) {
-            logger.logErrorToCrashlytics(
+            logger.log(
                 message = "Error converting user profile",
                 key = "userId",
                 keyValue = firebaseUser.uid,
@@ -32,7 +32,7 @@ class UserMapper(
             val email = snapshot.getString("email") ?: ""
             User(id, name, email)
         } catch (exception: Exception) {
-            logger.logErrorToCrashlytics(
+            logger.log(
                 message = "Error converting user profile",
                 key = "userId",
                 keyValue = snapshot.id,

@@ -6,6 +6,8 @@ import com.adwi.cricket.datasource.dataSourceModule
 import com.adwi.cricket.feature.auth.ui.authModule
 import com.adwi.cricket.feature.home.homeModule
 import com.adwi.cricket.feature.onboarding.onBoardingModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
@@ -17,6 +19,8 @@ class CricketApplication : Application() {
             Timber.plant(Timber.DebugTree())
         }
         startKoin {
+            androidLogger()
+            androidContext(this@CricketApplication)
             modules(
                 appModule,
                 dataSourceModule,

@@ -24,7 +24,7 @@ fun HomeScreen(
             Text(text = "Sign out")
         }
         Button(onClick = {
-            logger.logErrorToCrashlytics(
+            logger.log(
                 "Test Crash",
                 "user_id",
                 "Adrian",

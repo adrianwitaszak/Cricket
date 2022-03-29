@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Cricket</string>
+
+    // UI
     <string name="home">Home</string>
     <string name="auth">Auth</string>
+    <string name="authentication_sign_in_with_google">Sign in with Google</string>
+    <string name="by_continuing">"By continuing, you agree to the Digital Designs Terms Of Service and Privacy Policy"</string>
+
+    // Message
+    <string name="login_failed">Login failed</string>
 </resources>

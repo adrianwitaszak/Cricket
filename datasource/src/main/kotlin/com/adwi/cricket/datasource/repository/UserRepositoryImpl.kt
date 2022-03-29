@@ -7,9 +7,10 @@ import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import timber.log.Timber
 
 class UserRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
@@ -49,7 +50,7 @@ class UserRepositoryImpl(
         usersCollection.document().set(user).addOnCompleteListener { task ->
             when {
                 task.isSuccessful -> logger.log("insertUser - success")
-                else -> logger.logErrorToCrashlytics(
+                else -> logger.log(
                     message = "Cannot insert user",
                     keyValue = user.id,
                 )
@@ -62,7 +63,7 @@ class UserRepositoryImpl(
             val userSnapshot = usersCollection.document(userId).get().await()
             userMapper.toUser(userSnapshot)
         } catch (e: Exception) {
-            logger.logErrorToCrashlytics(
+            logger.log(
                 message = "Cannot get user",
                 keyValue = userId,
                 exception = e

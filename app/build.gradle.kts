@@ -17,7 +17,6 @@ android {
         versionCode = AndroidConfig.versionCode
         versionName = AndroidConfig.versionName
         testInstrumentationRunner = "com.adwi.cricket.androidtest.HiltTestRunner"
-//            AndroidConfig.hiltTestRunner
     }
     buildFeatures {
         compose = true
