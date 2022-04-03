@@ -42,6 +42,7 @@ class UserRepositoryImpl(
             val user = getUser(userId)
             emit(State.success(user))
         }
+        emit(State.idle())
     }.catch {
         emit(State.failed(it.message ?: "Cannot get user"))
     }

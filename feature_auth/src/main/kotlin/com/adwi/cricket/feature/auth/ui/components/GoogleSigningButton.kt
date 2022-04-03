@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.google.android.gms.base.R
 
 @Composable
-fun GoogleSigningButton(
+internal fun GoogleSigningButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
 ) {

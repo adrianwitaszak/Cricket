@@ -27,11 +27,11 @@ dependencies {
     implementation(Koin.compose)
     with(Android) {
         implementation(lifecycle)
-        implementation(composeActivity)
         implementation(composeUi)
         implementation(composeTooling)
-        implementation(composeFoundation)
         implementation(composeMaterial)
+        implementation(composeFoundation)
         implementation(composeConstrainLayout)
+        debugImplementation(composeToolingDebug)
     }
 }

@@ -10,7 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun AuthHeader(
+internal fun AuthHeader(
     modifier: Modifier = Modifier,
     appName: String,
 ) {

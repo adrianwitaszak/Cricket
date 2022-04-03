@@ -5,9 +5,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -86,29 +83,12 @@ fun AuthScreen(
 
     Scaffold(
         scaffoldState = rememberScaffoldState(snackbarHostState = snackbarHostState),
-        topBar = {
-            Row(modifier = Modifier.fillMaxWidth()) {
-                Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = {
-                    // TODO(add feedback menu here)
-                }) {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = "Menu",
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-            }
-            if (loadingState is LoadingState.Loading) {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-            }
-        },
     ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            AnimatedVisibility(visible = loadingState is LoadingState.Loading) {
+            AnimatedVisibility(visible = loadingState is LoadingState.LOADING) {
                 CircularProgressIndicator(modifier = Modifier.testTag(TEST_TAG_AUTH_PROGRESS))
             }
             Column(

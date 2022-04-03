@@ -1,5 +1,5 @@
 object Gradle {
-    private const val gradleBuildTool = "7.1.2"
+    private const val gradleBuildTool = "7.0.2"
     const val gradle = "com.android.tools.build:gradle:$gradleBuildTool"
 }
 

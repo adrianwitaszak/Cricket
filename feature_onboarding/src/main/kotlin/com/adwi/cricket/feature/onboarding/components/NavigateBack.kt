@@ -4,9 +4,9 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,7 +21,7 @@ fun NavigateBack(
     onClick: () -> Unit,
     isVisible: Boolean,
     icon: ImageVector = Icons.Default.ArrowBack,
-    tint: Color = MaterialTheme.colorScheme.onBackground,
+    tint: Color = MaterialTheme.colors.onBackground,
     height: Dp = 24.dp,
 ) {
     Row(

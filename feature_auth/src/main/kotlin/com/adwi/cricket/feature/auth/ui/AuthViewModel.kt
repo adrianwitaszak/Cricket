@@ -39,11 +39,15 @@ class AuthViewModel(
                         logger.setUserId(firebaseUser.data?.id ?: "UnknownId")
                     }
                     is State.Loading -> {
-                        _loadingState.value = LoadingState.Loading
+                        _loadingState.value = LoadingState.LOADING
                     }
                     is State.Failed -> {
                         _user.value = null
                         _loadingState.value = LoadingState.FAILED(firebaseUser.message)
+                    }
+                    else -> {
+                        _user.value = null
+                        _loadingState.value = LoadingState.IDLE
                     }
                 }
                 val message = """
@@ -60,7 +64,7 @@ class AuthViewModel(
     fun signInWithGoogle(credential: AuthCredential) {
         viewModelScope.launch {
             try {
-                _loadingState.value = LoadingState.Loading
+                _loadingState.value = LoadingState.LOADING
                 val result = userRepository.signInWithCredential(credential)
                 _user.value = result
                 _loadingState.value = if (result == null)

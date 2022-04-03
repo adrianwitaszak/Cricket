@@ -1,10 +1,6 @@
 package com.adwi.cricket.app.navigation
 
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import com.adwi.cricket.R
 import com.adwi.cricket.feature.auth.ui.AuthScreen
@@ -21,7 +17,7 @@ fun NavGraphBuilder.cricketNavGraph(
     onSignOutClick: () -> Unit,
     goHome: () -> Unit,
 ) {
-    composable(MainDestinations.HOME) { backStackEntry ->
+    composable(MainDestinations.HOME) {
         val viewModel: HomeViewModel by inject()
         HomeScreen(
             viewModel = viewModel,
@@ -30,7 +26,7 @@ fun NavGraphBuilder.cricketNavGraph(
     }
     composable(
         route = MainDestinations.AUTH,
-    ) { backStackEntry ->
+    ) {
         val viewModel: AuthViewModel by inject()
         AuthScreen(
             viewModel = viewModel,
@@ -40,21 +36,11 @@ fun NavGraphBuilder.cricketNavGraph(
     }
     composable(
         route = MainDestinations.ONBOARDING,
-    ) { backStackEntry ->
+    ) {
         val viewModel: OnBoardingViewModel by inject()
         OnBoardingScreen(
             viewModel = viewModel,
             onOnBoardingFinishedClick = onOnBoardingFinishedClick
         )
     }
-}
-
-fun NavBackStackEntry.lifecycleIsResumed() =
-    this.lifecycle.currentState == Lifecycle.State.RESUMED
-
-private val NavGraph.startDestination: NavDestination?
-    get() = findNode(startDestinationId)
-
-tailrec fun findStartDestination(graph: NavDestination): NavDestination {
-    return if (graph is NavGraph) findStartDestination(graph.startDestination!!) else graph
 }
