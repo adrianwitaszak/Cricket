@@ -3,7 +3,7 @@ package com.adwi.cricket.app
 import android.app.Application
 import com.adwi.cricket.BuildConfig
 import com.adwi.cricket.datasource.dataSourceModule
-import com.adwi.cricket.feature.auth.ui.authModule
+import com.adwi.cricket.feature.auth.authModule
 import com.adwi.cricket.feature.home.homeModule
 import com.adwi.cricket.feature.onboarding.onBoardingModule
 import org.koin.android.ext.koin.androidContext

@@ -20,21 +20,21 @@ import org.koin.androidx.compose.inject
 
 @OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val authViewModel: AuthViewModel by inject()
+            val appState = rememberMyAppState()
+            val authScreenState by authViewModel.state.collectAsState()
+
             CricketTheme {
-                Surface(modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background) {
-
-                    val authViewModel: AuthViewModel by inject()
-                    val appState = rememberMyAppState()
-                    val user by authViewModel.user.collectAsState()
-
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
                     AnimatedNavHost(
                         navController = appState.navController,
-                        startDestination = if (user == null)
+                        startDestination = if (authScreenState.user == null)
                             MainDestinations.AUTH else MainDestinations.HOME
                     ) {
                         cricketNavGraph(

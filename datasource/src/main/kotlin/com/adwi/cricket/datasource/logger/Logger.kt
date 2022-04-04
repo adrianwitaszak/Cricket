@@ -9,22 +9,35 @@ class Logger(
 ) {
     private val isDebug = BuildConfig.DEBUG
 
+    enum class LogType { Verbose, Debug, Info, Error }
+
     fun log(
         message: String,
         tag: String = this.javaClass.name,
         key: String = "userId",
         keyValue: String = "",
         exception: Exception = Exception("Exception"),
+        logType: LogType = LogType.Error,
     ) {
         if (isDebug) {
-            logToConsole(message, tag)
+            logToConsole(message, tag, logType)
         } else {
             logToCrashlytics(message, key, keyValue, exception)
         }
     }
 
-    private fun logToConsole(message: String, tag: String = this.javaClass.name) {
-        Timber.tag(tag).e(message)
+    private fun logToConsole(
+        message: String,
+        tag: String,
+        logType: LogType,
+    ) {
+        when (logType) {
+            LogType.Verbose -> Timber.tag(tag).v(message)
+            LogType.Debug -> Timber.tag(tag).d(message)
+            LogType.Info -> Timber.tag(tag).i(message)
+            LogType.Error -> Timber.tag(tag).e(message)
+        }
+
     }
 
     private fun logToCrashlytics(

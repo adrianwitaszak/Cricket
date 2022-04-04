@@ -8,7 +8,7 @@ android {
     defaultConfig {
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targetSdk
-        testInstrumentationRunner = AndroidConfig.hiltTestRunner
+        testInstrumentationRunner = AndroidConfig.testInstrumentationRunner
     }
     buildFeatures {
         compose = true

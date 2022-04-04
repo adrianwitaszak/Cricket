@@ -1,5 +1,6 @@
 package com.adwi.cricket.feature.auth.ui
 
+import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
@@ -20,6 +21,7 @@ import com.adwi.cricket.feature.auth.R
 import com.adwi.cricket.feature.auth.ui.components.AuthHeader
 import com.adwi.cricket.feature.auth.ui.components.GoogleSigningButton
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
@@ -38,10 +40,17 @@ fun AuthScreen(
     appName: String,
     goHome: () -> Unit,
 ) {
+    val state by viewModel.state.collectAsState()
+    val loadingState = state.loadingState
+
     val snackbarHostState = remember { SnackbarHostState() }
-    val loadingState by viewModel.loadingState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
+    val context = LocalContext.current
+    val googleSignInClient = getGoogleSignInClient(
+        context = context,
+        token = stringResource(R.string.default_web_client_id)
+    )
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
@@ -53,16 +62,6 @@ fun AuthScreen(
                 Timber.tag("TAG").w(e, "Google sign in failed")
             }
         }
-
-    val context = LocalContext.current
-    val token = stringResource(R.string.default_web_client_id)
-    val gso =
-        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(token)
-            .requestEmail()
-            .build()
-
-    val googleSignInClient = GoogleSignIn.getClient(context, gso)
 
     when (loadingState) {
         is LoadingState.FAILED -> {
@@ -105,7 +104,9 @@ fun AuthScreen(
                     Spacer(modifier = Modifier.weight(1f))
                     GoogleSigningButton(
                         modifier = Modifier.testTag(TEST_TAG_AUTH_SIGN_IN_BUTTON)
-                    ) { launcher.launch(googleSignInClient.signInIntent) }
+                    ) {
+                        launcher.launch(googleSignInClient.signInIntent)
+                    }
                     Spacer(modifier = Modifier.size(12.dp))
                     Text(
                         modifier = Modifier
@@ -122,3 +123,12 @@ fun AuthScreen(
     }
 }
 
+private fun getGoogleSignInClient(context: Context, token: String): GoogleSignInClient {
+    val gso =
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(token)
+            .requestEmail()
+            .build()
+
+    return GoogleSignIn.getClient(context, gso)
+}
