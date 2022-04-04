@@ -1,5 +1,7 @@
 package com.adwi.cricket.app.navigation
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraphBuilder
 import com.adwi.cricket.R
@@ -28,8 +30,10 @@ fun NavGraphBuilder.cricketNavGraph(
         route = MainDestinations.AUTH,
     ) {
         val viewModel: AuthViewModel by inject()
+        val state by viewModel.state.collectAsState()
         AuthScreen(
-            viewModel = viewModel,
+            state = state,
+            intent = viewModel::triggerIntent,
             appName = stringResource(id = R.string.app_name),
             goHome = goHome
         )

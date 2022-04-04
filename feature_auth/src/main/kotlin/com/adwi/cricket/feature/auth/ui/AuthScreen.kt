@@ -6,7 +6,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -26,7 +29,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.launch
-import org.koin.androidx.compose.get
 import timber.log.Timber
 
 const val TEST_TAG_AUTH_SIGN_IN_BUTTON = "sign_in_button"
@@ -36,13 +38,11 @@ const val TEST_TAG_AUTH_PROGRESS = "progress"
 
 @Composable
 fun AuthScreen(
-    viewModel: AuthViewModel = get(),
+    state: AuthScreenState,
+    intent: (AuthScreenIntent) -> Unit,
     appName: String,
     goHome: () -> Unit,
 ) {
-    val state by viewModel.state.collectAsState()
-    val loadingState = state.loadingState
-
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -57,13 +57,13 @@ fun AuthScreen(
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 val credential = GoogleAuthProvider.getCredential(account.idToken!!, null)
-                viewModel.signInWithGoogle(credential)
+                intent(AuthScreenIntent.SignIntWithCredentials(credential))
             } catch (e: ApiException) {
                 Timber.tag("TAG").w(e, "Google sign in failed")
             }
         }
 
-    when (loadingState) {
+    when (state.loadingState) {
         is LoadingState.FAILED -> {
             val message = stringResource(id = R.string.login_failed)
             LaunchedEffect(true) {
@@ -87,7 +87,7 @@ fun AuthScreen(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            AnimatedVisibility(visible = loadingState is LoadingState.LOADING) {
+            AnimatedVisibility(visible = state.loadingState is LoadingState.LOADING) {
                 CircularProgressIndicator(modifier = Modifier.testTag(TEST_TAG_AUTH_PROGRESS))
             }
             Column(

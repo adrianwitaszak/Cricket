@@ -26,6 +26,12 @@ class AuthViewModel(
         getCurrentUser()
     }
 
+    fun triggerIntent(intent: AuthScreenIntent) {
+        when (intent) {
+            is AuthScreenIntent.SignIntWithCredentials -> signInWithGoogle(intent.credential)
+        }
+    }
+
     private fun getCurrentUser() {
         viewModelScope.launch {
             userRepository.getSignedInUser().collect { firebaseUser ->
@@ -64,7 +70,7 @@ class AuthViewModel(
         }
     }
 
-    fun signInWithGoogle(credential: AuthCredential) {
+    private fun signInWithGoogle(credential: AuthCredential) {
         viewModelScope.launch {
             try {
                 _state.update { it.copy(loadingState = LoadingState.LOADING) }
