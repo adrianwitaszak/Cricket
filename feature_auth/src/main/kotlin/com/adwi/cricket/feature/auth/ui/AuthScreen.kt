@@ -4,10 +4,8 @@ import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Scaffold
-import androidx.compose.material.SnackbarHostState
-import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -54,7 +52,7 @@ fun AuthScreen(
         token = stringResource(R.string.default_web_client_id)
     )
 
-    handleAuthLoadingState(
+    HandleAuthLoadingState(
         state = state.loadingState,
         snackbarHostState = snackbarHostState,
         success = goHome,
@@ -83,9 +81,11 @@ fun AuthScreen(
                         modifier = Modifier.testTag(TEST_TAG_AUTH_HEADER),
                         appName = appName)
                     Spacer(modifier = Modifier.weight(1f))
-                    GoogleSigningButton(
-                        modifier = Modifier.testTag(TEST_TAG_AUTH_SIGN_IN_BUTTON)
-                    ) {
+                    SignIntWithoutGoogle(
+                        onClick = { intent(AuthScreenIntent.SignIntWithOutGoogle) },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    GoogleSigningButton {
                         launcher.launch(googleSignInClient.signInIntent)
                     }
                     Spacer(modifier = Modifier.size(12.dp))
@@ -104,6 +104,24 @@ fun AuthScreen(
     }
 }
 
+@Composable
+private fun SignIntWithoutGoogle(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    label: String = stringResource(R.string.sign_in_without_google),
+) {
+    Button(
+        onClick = onClick,
+        shape = RoundedCornerShape(percent = 100),
+        modifier = modifier
+    ) {
+        Text(
+            text = label,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
 private fun getGoogleSignInClient(context: Context, token: String): GoogleSignInClient {
     val gso =
         GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -114,6 +132,7 @@ private fun getGoogleSignInClient(context: Context, token: String): GoogleSignIn
     return GoogleSignIn.getClient(context, gso)
 }
 
+@Composable
 private fun getSignInLauncherActivity(
     intent: (AuthScreenIntent) -> Unit,
 ) =
@@ -128,10 +147,11 @@ private fun getSignInLauncherActivity(
         }
     }
 
-private fun handleAuthLoadingState(
+@Composable
+private fun HandleAuthLoadingState(
     state: LoadingState,
     snackbarHostState: SnackbarHostState,
-    success: @Composable () -> Unit,
+    success: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
 

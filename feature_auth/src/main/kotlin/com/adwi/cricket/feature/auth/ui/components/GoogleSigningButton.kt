@@ -11,8 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.adwi.cricket.feature.auth.ui.TEST_TAG_AUTH_SIGN_IN_BUTTON
 import com.google.android.gms.base.R
 
 @Composable
@@ -23,6 +25,7 @@ internal fun GoogleSigningButton(
     OutlinedButton(
         border = ButtonDefaults.outlinedBorder.copy(width = 1.dp),
         modifier = modifier
+            .testTag(TEST_TAG_AUTH_SIGN_IN_BUTTON)
             .fillMaxWidth()
             .height(50.dp),
         onClick = onClick,

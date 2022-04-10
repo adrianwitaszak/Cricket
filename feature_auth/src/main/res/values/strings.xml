@@ -3,6 +3,7 @@
     <string name="default_web_client_id">815823640514-32fln5om3nd0bktirkhp5pdoidp8l15q.apps.googleusercontent.com</string>
 
     // UI
+    <string name="sign_in_without_google">Sign in without Google</string>
     <string name="authentication_sign_in_with_google">Sign in with Google</string>
     <string name="by_continuing">"By continuing, you agree to the Digital Designs Terms Of Service and Privacy Policy"</string>
 
