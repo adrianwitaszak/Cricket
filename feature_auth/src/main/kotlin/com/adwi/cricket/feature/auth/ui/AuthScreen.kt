@@ -3,9 +3,11 @@ package com.adwi.cricket.feature.auth.ui
 import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHostState
+import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -19,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.adwi.cricket.components.CricketProgressIndicator
 import com.adwi.cricket.core.LoadingState
 import com.adwi.cricket.feature.auth.R
 import com.adwi.cricket.feature.auth.ui.components.AuthHeader
@@ -87,9 +90,10 @@ fun AuthScreen(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            AnimatedVisibility(visible = state.loadingState is LoadingState.LOADING) {
-                CircularProgressIndicator(modifier = Modifier.testTag(TEST_TAG_AUTH_PROGRESS))
-            }
+            CricketProgressIndicator(
+                isLoading = state.loadingState is LoadingState.LOADING,
+                modifier = Modifier.testTag(TEST_TAG_AUTH_PROGRESS)
+            )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
