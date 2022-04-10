@@ -38,9 +38,9 @@ class AuthViewModel(
     private fun getCurrentUser() {
         viewModelScope.launch {
             val uid = authRepository.getCurrentUser()
-            uid?.let {
-                userRepository.getSignedInUser(it.uid).collect { firebaseUser ->
-                    when (firebaseUser) {
+            uid?.let { firebaseUser ->
+                userRepository.getSignedInUser(firebaseUser.uid).collect { userState ->
+                    when (userState) {
                         is State.Success -> {
                             _state.update {
                                 it.copy(
@@ -48,7 +48,7 @@ class AuthViewModel(
                                     loadingState = LoadingState.SUCCESS
                                 )
                             }
-                            logger.setUserId(firebaseUser.data?.id ?: "UnknownId")
+                            logger.setUserId(userState.data?.id ?: "UnknownId")
                         }
                         is State.Loading -> {
                             _state.update {
@@ -61,7 +61,7 @@ class AuthViewModel(
                             _state.update {
                                 it.copy(
                                     user = null,
-                                    loadingState = LoadingState.FAILED(firebaseUser.message)
+                                    loadingState = LoadingState.FAILED(userState.message)
                                 )
                             }
                         }
@@ -80,13 +80,16 @@ class AuthViewModel(
         viewModelScope.launch {
             try {
                 _state.update { it.copy(loadingState = LoadingState.LOADING) }
-                val result = authRepository.signInWithCredential(credential)
-                _state.update {
-                    it.copy(
-                        user = result,
-                        loadingState = if (result == null)
-                            LoadingState.FAILED(msg = "Login Failed") else LoadingState.SUCCESS
-                    )
+                val firebaseUser = authRepository.signInWithCredential(credential)
+                firebaseUser?.let {
+                    val user = userRepository.insertUser(it)
+                    _state.update { screenState ->
+                        screenState.copy(
+                            user = user,
+                            loadingState = if (user == null)
+                                LoadingState.FAILED(msg = "Login Failed") else LoadingState.SUCCESS
+                        )
+                    }
                 }
             } catch (e: Exception) {
                 _state.update {

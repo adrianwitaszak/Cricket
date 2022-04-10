@@ -5,6 +5,7 @@ import com.adwi.cricket.datasource.logger.Logger
 import com.adwi.cricket.datasource.mapper.UserMapper
 import com.adwi.cricket.datasource.remote.RemoteDatasource
 import com.adwi.cricket.model.User
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -23,8 +24,12 @@ class UserRepositoryImpl(
         emit(State.failed(it.message ?: "Cannot get user"))
     }
 
-    override suspend fun insertUser(user: User) {
-        remoteDatasource.insertUser(user)
+    override suspend fun insertUser(firebaseUser: FirebaseUser): User? {
+        val user = userMapper.toUser(firebaseUser)
+        user?.let {
+            remoteDatasource.insertUser(user)
+        }
+        return user
     }
 
     private suspend fun getUser(userId: String): User? {

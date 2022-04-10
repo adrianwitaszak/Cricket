@@ -18,12 +18,9 @@ class AuthRepositoryImpl(
         return firebaseAuth.currentUser
     }
 
-    override suspend fun signInWithCredential(credential: AuthCredential): User? {
+    override suspend fun signInWithCredential(credential: AuthCredential): FirebaseUser? {
         val result = firebaseAuth.signInWithCredential(credential).await()
-        val user = result.user?.let {
-            userMapper.toUser(it)
-        }
-        return user
+        return result.user
     }
 
     override fun signOut(): User? {
