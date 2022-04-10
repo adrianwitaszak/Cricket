@@ -1,4 +1,4 @@
-package com.adwi.cricket.datasource.repository.mapper
+package com.adwi.cricket.datasource.mapper
 
 import com.adwi.cricket.datasource.logger.Logger
 import com.adwi.cricket.model.User

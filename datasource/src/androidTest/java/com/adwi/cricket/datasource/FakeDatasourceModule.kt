@@ -1,6 +1,6 @@
 package com.adwi.cricket.datasource
 
-import com.adwi.cricket.datasource.repository.UserRepository
+import com.adwi.cricket.datasource.repository.user.UserRepository
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
 import dagger.Module

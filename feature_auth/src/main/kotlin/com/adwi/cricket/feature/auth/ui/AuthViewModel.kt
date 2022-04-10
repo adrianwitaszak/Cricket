@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.adwi.cricket.core.LoadingState
 import com.adwi.cricket.core.State
 import com.adwi.cricket.datasource.logger.Logger
-import com.adwi.cricket.datasource.repository.UserRepository
+import com.adwi.cricket.datasource.repository.auth.AuthRepository
+import com.adwi.cricket.datasource.repository.user.UserRepository
 import com.google.firebase.auth.AuthCredential
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +15,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AuthViewModel(
+    private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
     private val logger: Logger,
 
@@ -29,40 +31,44 @@ class AuthViewModel(
     fun triggerIntent(intent: AuthScreenIntent) {
         when (intent) {
             is AuthScreenIntent.SignIntWithCredentials -> signInWithGoogle(intent.credential)
+            AuthScreenIntent.SignIntWithOutGoogle -> {}
         }
     }
 
     private fun getCurrentUser() {
         viewModelScope.launch {
-            userRepository.getSignedInUser().collect { firebaseUser ->
-                when (firebaseUser) {
-                    is State.Success -> {
-                        _state.update {
-                            it.copy(
-                                user = it.user,
-                                loadingState = LoadingState.SUCCESS
-                            )
+            val uid = authRepository.getCurrentUser()
+            uid?.let {
+                userRepository.getSignedInUser(it.uid).collect { firebaseUser ->
+                    when (firebaseUser) {
+                        is State.Success -> {
+                            _state.update {
+                                it.copy(
+                                    user = it.user,
+                                    loadingState = LoadingState.SUCCESS
+                                )
+                            }
+                            logger.setUserId(firebaseUser.data?.id ?: "UnknownId")
                         }
-                        logger.setUserId(firebaseUser.data?.id ?: "UnknownId")
-                    }
-                    is State.Loading -> {
-                        _state.update {
-                            it.copy(
-                                loadingState = LoadingState.LOADING
-                            )
+                        is State.Loading -> {
+                            _state.update {
+                                it.copy(
+                                    loadingState = LoadingState.LOADING
+                                )
+                            }
                         }
-                    }
-                    is State.Failed -> {
-                        _state.update {
-                            it.copy(
-                                user = null,
-                                loadingState = LoadingState.FAILED(firebaseUser.message)
-                            )
+                        is State.Failed -> {
+                            _state.update {
+                                it.copy(
+                                    user = null,
+                                    loadingState = LoadingState.FAILED(firebaseUser.message)
+                                )
+                            }
                         }
-                    }
-                    else -> {
-                        _state.update {
-                            it.copy(loadingState = LoadingState.IDLE)
+                        else -> {
+                            _state.update {
+                                it.copy(loadingState = LoadingState.IDLE)
+                            }
                         }
                     }
                 }
@@ -74,7 +80,7 @@ class AuthViewModel(
         viewModelScope.launch {
             try {
                 _state.update { it.copy(loadingState = LoadingState.LOADING) }
-                val result = userRepository.signInWithCredential(credential)
+                val result = authRepository.signInWithCredential(credential)
                 _state.update {
                     it.copy(
                         user = result,
@@ -91,7 +97,7 @@ class AuthViewModel(
     }
 
     fun signOut() {
-        userRepository.signOut()
+        authRepository.signOut()
         Timber.d("signOut")
     }
 }
