@@ -36,6 +36,8 @@ tasks.withType<KotlinCompile>().configureEach {
 }
 dependencies {
     with(Modules) {
+        implementation(project(DOMAIN))
+        implementation(project(CORE))
         implementation(project(COMPONENTS))
         implementation(project(USECASES))
     }
@@ -52,4 +54,14 @@ dependencies {
         debugImplementation(composeToolingDebug)
         implementation(accompanistNavigationAnimation)
     }
+    addCrashlyticsAnalyticsDependencies()
+    with(Firebase) {
+        implementation(cloudFirestore)
+    }
+    with(Kotlin) {
+        implementation(coroutinesPlayServices)
+    }
+    implementation(Koin.android)
+    addAndroidTestDependencies()
+    addTestDependencies()
 }
