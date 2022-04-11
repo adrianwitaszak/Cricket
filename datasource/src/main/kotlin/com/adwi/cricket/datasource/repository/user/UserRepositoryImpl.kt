@@ -1,14 +1,10 @@
 package com.adwi.cricket.datasource.repository.user
 
-import com.adwi.cricket.core.State
 import com.adwi.cricket.datasource.logger.Logger
 import com.adwi.cricket.datasource.mapper.UserMapper
 import com.adwi.cricket.datasource.remote.RemoteDatasource
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 
 class UserRepositoryImpl(
     private val remoteDatasource: RemoteDatasource,
@@ -16,25 +12,9 @@ class UserRepositoryImpl(
     private val logger: Logger,
 ) : UserRepository {
 
-    override fun getSignedInUser(uid: String): Flow<State<User?>> = flow {
-        emit(State.loading())
-        val user = getUser(uid)
-        emit(State.success(user))
-    }.catch {
-        emit(State.failed(it.message ?: "Cannot get user"))
-    }
-
-    override suspend fun insertUser(firebaseUser: FirebaseUser): User? {
-        val user = userMapper.toUser(firebaseUser)
-        user?.let {
-            remoteDatasource.insertUser(user)
-        }
-        return user
-    }
-
-    private suspend fun getUser(userId: String): User? {
+    override suspend fun getSignedInUser(uid: String): User? {
         return try {
-            val userSnapshot = remoteDatasource.getUser(userId)
+            val userSnapshot = remoteDatasource.getUser(uid)
             userSnapshot?.let {
                 return userMapper.toUser(userSnapshot)
             }
@@ -42,11 +22,18 @@ class UserRepositoryImpl(
         } catch (e: Exception) {
             logger.log(
                 message = "Cannot get user",
-                keyValue = userId,
+                keyValue = uid,
                 exception = e
             )
             null
         }
+    }
+
+    override suspend fun insertUser(firebaseUser: FirebaseUser) {
+        val user = userMapper.toUser(firebaseUser)
+        user?.let {
+            remoteDatasource.insertUser(user)
+        } ?: logger.log("Can't insert user")
     }
 }
 

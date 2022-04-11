@@ -14,6 +14,7 @@ import com.adwi.cricket.app.navigation.MainDestinations
 import com.adwi.cricket.app.navigation.cricketNavGraph
 import com.adwi.cricket.app.navigation.rememberMyAppState
 import com.adwi.cricket.components.theme.CricketTheme
+import com.adwi.cricket.datasource.usecases.SignOut
 import com.adwi.cricket.feature.auth.ui.AuthViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import org.koin.androidx.compose.inject
@@ -24,8 +25,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val authViewModel: AuthViewModel by inject()
-            val appState = rememberMyAppState()
+            val signOut: SignOut by inject()
             val authScreenState by authViewModel.state.collectAsState()
+            val appState = rememberMyAppState()
 
             CricketTheme {
                 Surface(
@@ -40,7 +42,7 @@ class MainActivity : ComponentActivity() {
                         cricketNavGraph(
                             onOnBoardingFinishedClick = appState::navigateToHome,
                             onSignOutClick = {
-                                authViewModel.signOut()
+                                signOut.execute()
                                 appState.navigateToAuth()
                             },
                             goHome = { appState.navigateToHome(true) }

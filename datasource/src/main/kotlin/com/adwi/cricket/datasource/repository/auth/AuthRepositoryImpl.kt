@@ -1,8 +1,6 @@
 package com.adwi.cricket.datasource.repository.auth
 
 import com.adwi.cricket.datasource.logger.Logger
-import com.adwi.cricket.datasource.mapper.UserMapper
-import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -10,12 +8,15 @@ import kotlinx.coroutines.tasks.await
 
 class AuthRepositoryImpl(
     private val firebaseAuth: FirebaseAuth,
-    private val userMapper: UserMapper,
     private val logger: Logger,
 ) : AuthRepository {
 
     override fun getCurrentUser(): FirebaseUser? {
-        return firebaseAuth.currentUser
+        val firebaseUser = firebaseAuth.currentUser
+        firebaseUser?.let {
+            logger.setUserId(it.uid)
+        }
+        return firebaseUser
     }
 
     override suspend fun signInWithCredential(credential: AuthCredential): FirebaseUser? {
@@ -23,9 +24,7 @@ class AuthRepositoryImpl(
         return result.user
     }
 
-    override fun signOut(): User? {
+    override fun signOut() {
         firebaseAuth.signOut()
-        return null
     }
-
 }

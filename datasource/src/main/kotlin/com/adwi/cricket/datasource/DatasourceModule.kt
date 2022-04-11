@@ -8,14 +8,23 @@ import com.adwi.cricket.datasource.repository.auth.AuthRepository
 import com.adwi.cricket.datasource.repository.auth.AuthRepositoryImpl
 import com.adwi.cricket.datasource.repository.user.UserRepository
 import com.adwi.cricket.datasource.repository.user.UserRepositoryImpl
+import com.adwi.cricket.datasource.usecases.GetCurrentUser
+import com.adwi.cricket.datasource.usecases.SignInWithGoogle
+import com.adwi.cricket.datasource.usecases.SignOut
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.dsl.module
 
 val dataSourceModule = module {
-    single { FirebaseFirestore.getInstance() }
-    single<AuthRepository> { AuthRepositoryImpl(get(), get(), get()) }
-    single<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
-    single<RemoteDatasource> { RemoteDatasourceImpl(get(), get()) }
     single { Logger(get()) }
     single { UserMapper(get()) }
+
+    single { FirebaseFirestore.getInstance() }
+
+    single<AuthRepository> { AuthRepositoryImpl(get(), get()) }
+    single<UserRepository> { UserRepositoryImpl(get(), get(), get()) }
+    single<RemoteDatasource> { RemoteDatasourceImpl(get(), get()) }
+
+    single { GetCurrentUser(get(), get()) }
+    single { SignInWithGoogle(get(), get()) }
+    single { SignOut(get()) }
 }
