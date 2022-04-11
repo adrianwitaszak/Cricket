@@ -5,6 +5,7 @@ import com.adwi.cricket.datasource.mapper.UserMapper
 import com.adwi.cricket.datasource.remote.RemoteDatasource
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.FirebaseUser
+import timber.log.Timber
 
 class UserRepositoryImpl(
     private val remoteDatasource: RemoteDatasource,
@@ -15,6 +16,7 @@ class UserRepositoryImpl(
     override suspend fun getSignedInUser(uid: String): User? {
         return try {
             val userSnapshot = remoteDatasource.getUser(uid)
+            Timber.e("getSignedInUser $userSnapshot")
             userSnapshot?.let {
                 return userMapper.toUser(userSnapshot)
             }

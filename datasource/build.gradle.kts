@@ -27,7 +27,6 @@ dependencies {
     addCrashlyticsAnalyticsDependencies()
     with(Firebase) {
         implementation(cloudFirestore)
-        implementation(cloudMessaging)
     }
     with(Kotlin) {
         implementation(coroutinesCore)

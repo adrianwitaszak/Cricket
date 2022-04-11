@@ -21,6 +21,7 @@ import org.koin.androidx.compose.inject
 
 @OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

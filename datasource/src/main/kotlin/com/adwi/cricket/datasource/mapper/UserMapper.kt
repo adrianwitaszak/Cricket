@@ -1,5 +1,6 @@
 package com.adwi.cricket.datasource.mapper
 
+import com.adwi.cricket.datasource.logger.LogType
 import com.adwi.cricket.datasource.logger.Logger
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.FirebaseUser
@@ -8,18 +9,17 @@ import com.google.firebase.firestore.DocumentSnapshot
 class UserMapper(
     private val logger: Logger,
 ) {
-    fun toUser(firebaseUser: FirebaseUser): User? {
+    fun toUser(firebaseUser: FirebaseUser?): User? {
         return try {
-            val id = firebaseUser.uid
-            val name = firebaseUser.displayName.orEmpty()
-            val email = firebaseUser.email.orEmpty()
+            val id = firebaseUser?.uid.orEmpty()
+            val name = firebaseUser?.displayName.orEmpty()
+            val email = firebaseUser?.email.orEmpty()
+            logUser(id, name, email)
             User(id, name, email)
         } catch (exception: Exception) {
-            logger.log(
-                message = "Error converting user profile",
-                key = "userId",
-                keyValue = firebaseUser.uid,
-                exception = exception
+            logUserError(
+                key = firebaseUser?.uid ?: "",
+                exception
             )
             null
         }
@@ -30,15 +30,31 @@ class UserMapper(
             val id = snapshot.getString("id") ?: ""
             val name = snapshot.getString("name") ?: ""
             val email = snapshot.getString("email") ?: ""
+            logUser(id, name, email)
             User(id, name, email)
         } catch (exception: Exception) {
-            logger.log(
-                message = "Error converting user profile",
-                key = "userId",
-                keyValue = snapshot.id,
-                exception = exception
+            logUserError(
+                key = snapshot.id,
+                exception
             )
             null
         }
+    }
+
+    private fun logUser(id: String, name: String, email: String) {
+        logger.log(
+            message = "UserMapper - toUser\n$id $name $email",
+            logType = LogType.Info
+        )
+    }
+
+    private fun logUserError(key: String, exception: Exception) {
+        logger.log(
+            message = "Error converting user profile",
+            key = "userId",
+            keyValue = key,
+            exception = exception,
+            logType = LogType.Error
+        )
     }
 }

@@ -13,7 +13,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class AuthViewModel(
     private val getCurrentUser: GetCurrentUser,
@@ -25,7 +24,6 @@ class AuthViewModel(
     val state: StateFlow<AuthScreenState> get() = _state
 
     init {
-        Timber.e("AuthViewModel init")
         getCurrentUser()
     }
 
@@ -34,14 +32,15 @@ class AuthViewModel(
             is AuthScreenIntent.SignIntWithCredentials -> signInWithGoogle(intent.credential)
             AuthScreenIntent.SignIntWithOutGoogle -> {}
             AuthScreenIntent.SignOut -> signOutUser()
+            AuthScreenIntent.GetCurrentUser -> getCurrentUser()
         }
     }
 
     private fun getCurrentUser() {
         viewModelScope.launch {
-            getCurrentUser.execute().collect { userState ->
-                Timber.e("getCurrentUser ")
-                handleUserState(userState)
+            val currentUser = getCurrentUser.execute()
+            _state.update {
+                it.copy(user = currentUser)
             }
         }
     }
@@ -49,7 +48,6 @@ class AuthViewModel(
     private fun signInWithGoogle(credential: AuthCredential) {
         viewModelScope.launch {
             signInWithGoogle.execute(credential).collect { userState ->
-                Timber.e("SignInWithGoogle - viewmodel success - $userState")
                 handleUserState(userState)
             }
         }

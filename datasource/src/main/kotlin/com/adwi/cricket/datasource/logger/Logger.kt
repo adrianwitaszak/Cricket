@@ -4,12 +4,12 @@ import com.adwi.cricket.datasource.BuildConfig
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import timber.log.Timber
 
+enum class LogType { Verbose, Debug, Info, Error }
+
 class Logger(
     private val crashlytics: FirebaseCrashlytics,
 ) {
     private val isDebug = BuildConfig.DEBUG
-
-    enum class LogType { Verbose, Debug, Info, Error }
 
     fun log(
         message: String,
