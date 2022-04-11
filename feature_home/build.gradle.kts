@@ -24,7 +24,7 @@ android {
 }
 dependencies {
     with(Modules) {
-        implementation(project(DATASOURCE))
+        implementation(project(USECASES))
         implementation(project(COMPONENTS))
     }
     with(Kotlin) {

@@ -23,7 +23,10 @@ android {
     }
 }
 dependencies {
-    implementation(project(Modules.COMPONENTS))
+    with(Modules) {
+        implementation(project(COMPONENTS))
+        implementation(project(USECASES))
+    }
     implementation(Koin.compose)
     with(Android) {
         implementation(lifecycle)

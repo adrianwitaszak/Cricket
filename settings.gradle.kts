@@ -19,11 +19,13 @@ rootProject.name = "Cricket"
 include(
 
     ":app",
-    ":model",
+    ":domain",
     ":core",
     ":components",
 
-    ":datasource",
+    ":data_remote",
+    ":data_repository",
+    ":data_usecases",
 
     ":feature_auth",
     ":feature_onboarding",

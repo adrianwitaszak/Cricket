@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.adwi.cricket.core.LoadingState
 import com.adwi.cricket.core.State
-import com.adwi.cricket.datasource.usecases.GetCurrentUser
-import com.adwi.cricket.datasource.usecases.SignInWithGoogle
-import com.adwi.cricket.datasource.usecases.SignOut
+import com.adwi.cricket.data.usecases.GetCurrentUser
+import com.adwi.cricket.data.usecases.SignInWithGoogle
+import com.adwi.cricket.data.usecases.SignOut
 import com.adwi.cricket.model.User
 import com.google.firebase.auth.AuthCredential
 import kotlinx.coroutines.flow.MutableStateFlow

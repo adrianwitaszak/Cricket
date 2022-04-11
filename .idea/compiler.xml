@@ -3,8 +3,6 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
       <module name="Cricket.data_local" target="11" />
-      <module name="Cricket.data_remote" target="11" />
-      <module name="Cricket.data_repository" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

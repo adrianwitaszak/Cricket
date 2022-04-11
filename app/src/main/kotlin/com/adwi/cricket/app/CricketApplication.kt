@@ -2,7 +2,10 @@ package com.adwi.cricket.app
 
 import android.app.Application
 import com.adwi.cricket.BuildConfig
-import com.adwi.cricket.datasource.dataSourceModule
+import com.adwi.cricket.core.coreModule
+import com.adwi.cricket.data.remote.remoteModule
+import com.adwi.cricket.data.repositoryModule
+import com.adwi.cricket.data.usecasesModule
 import com.adwi.cricket.feature.auth.authModule
 import com.adwi.cricket.feature.home.homeModule
 import com.adwi.cricket.feature.onboarding.onBoardingModule
@@ -31,7 +34,12 @@ class CricketApplication : Application() {
             androidContext(this@CricketApplication)
             modules(
                 appModule,
-                dataSourceModule,
+                coreModule,
+
+                remoteModule,
+                repositoryModule,
+                usecasesModule,
+
                 authModule,
                 homeModule,
                 onBoardingModule

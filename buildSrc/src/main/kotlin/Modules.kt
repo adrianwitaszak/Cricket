@@ -1,10 +1,14 @@
 @Suppress("unused")
 object Modules {
 
-    const val MODEL = ":model"
+    const val DOMAIN = ":domain"
     const val CORE = ":core"
-    const val DATASOURCE = ":datasource"
     const val COMPONENTS = ":components"
+
+    // Data
+    const val REMOTE = ":data_remote"
+    const val REPOSITORY = ":data_repository"
+    const val USECASES = ":data_usecases"
 
     // Features
     const val AUTH = ":feature_auth"

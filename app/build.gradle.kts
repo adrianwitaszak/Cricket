@@ -1,4 +1,3 @@
-import com.android.aaptcompiler.compileResource
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -50,13 +49,18 @@ tasks.withType<KotlinCompile>().configureEach {
 
 dependencies {
     with(Modules) {
-        implementation(project(MODEL))
+        implementation(project(DOMAIN))
         implementation(project(CORE))
-        implementation(project(DATASOURCE))
         implementation(project(COMPONENTS))
+
+        implementation(project(REMOTE))
+        implementation(project(REPOSITORY))
+        implementation(project(USECASES))
+
         implementation(project(AUTH))
         implementation(project(ONBOARDING))
         implementation(project(HOME))
+
         implementation(project(TEST_UTILS))
     }
     implementation(Koin.compose)

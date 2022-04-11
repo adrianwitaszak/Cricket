@@ -1,10 +1,10 @@
-import org.gradle.api.artifacts.dsl.DependencyHandler
 import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.dsl.DependencyHandler
 
 fun DependencyHandler.addFirebaseAuthDependency() {
+    api(platform(Firebase.bom))
     implementation(Google.auth)
-    implementation(platform(Firebase.bom))
-    implementation(Firebase.auth)
+    api(Firebase.auth)
 }
 
 fun DependencyHandler.addAndroidTestDependencies() {

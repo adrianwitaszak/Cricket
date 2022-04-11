@@ -23,10 +23,10 @@ android {
 }
 dependencies {
     with(Modules) {
+        implementation(project(DOMAIN))
         implementation(project(CORE))
-        implementation(project(MODEL))
         implementation(project(COMPONENTS))
-        implementation(project(DATASOURCE))
+        implementation(project(USECASES))
         implementation(project(TEST_UTILS))
     }
     implementation(Firebase.bom)

@@ -14,11 +14,13 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/components" />
             <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/datasource" />
+            <option value="$PROJECT_DIR$/data_remote" />
+            <option value="$PROJECT_DIR$/data_repository" />
+            <option value="$PROJECT_DIR$/data_usecases" />
+            <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/feature_auth" />
             <option value="$PROJECT_DIR$/feature_home" />
             <option value="$PROJECT_DIR$/feature_onboarding" />
-            <option value="$PROJECT_DIR$/model" />
             <option value="$PROJECT_DIR$/test_utils" />
           </set>
         </option>

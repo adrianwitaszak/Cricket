@@ -14,7 +14,7 @@ import com.adwi.cricket.app.navigation.MainDestinations
 import com.adwi.cricket.app.navigation.cricketNavGraph
 import com.adwi.cricket.app.navigation.rememberMyAppState
 import com.adwi.cricket.components.theme.CricketTheme
-import com.adwi.cricket.datasource.usecases.SignOut
+import com.adwi.cricket.data.usecases.SignOut
 import com.adwi.cricket.feature.auth.ui.AuthViewModel
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import org.koin.androidx.compose.inject
