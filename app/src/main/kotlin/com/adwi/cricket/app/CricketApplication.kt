@@ -15,9 +15,17 @@ class CricketApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initTimber()
+        initKoin()
+    }
+
+    private fun initTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+    }
+
+    private fun initKoin() {
         startKoin {
             androidLogger()
             androidContext(this@CricketApplication)
