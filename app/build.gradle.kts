@@ -76,7 +76,7 @@ dependencies {
         implementation(composeActivity)
         implementation(composeMaterial)
         implementation(lifecycle)
-        implementation(composeNavigation)
+//        implementation(composeNavigation)
         implementation(accompanistInsets)
         debugImplementation(composeToolingDebug)
         implementation(accompanistNavigationAnimation)

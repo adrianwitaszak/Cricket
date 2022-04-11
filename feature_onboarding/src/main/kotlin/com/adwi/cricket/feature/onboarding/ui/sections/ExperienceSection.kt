@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature.onboarding.components
+package com.adwi.cricket.feature.onboarding.ui.sections
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
@@ -13,16 +13,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.adwi.cricket.components.theme.CricketTheme
+import com.adwi.cricket.feature.onboarding.ui.OnBoardingViewModel
+import org.koin.androidx.compose.get
 
 @Composable
-internal fun ExperiencePanel(
-    modifier: Modifier = Modifier,
+internal fun ExperienceSection(
+    viewModel: OnBoardingViewModel = get(),
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding()
-//            .wrapContentWidth()
     ) {
         Text(
             text = "How much experience do you have with coding so far?"
@@ -51,24 +52,24 @@ private fun ExperienceItem(
 
 @Preview(showBackground = true, name = "Light")
 @Composable
-private fun ExperiencePanelLight() {
+private fun ExperienceSectionLight() {
     CricketTheme(
         darkTheme = false,
     ) {
         Box(modifier = Modifier.padding(12.dp)) {
-            ExperiencePanel()
+            ExperienceSection()
         }
     }
 }
 
 @Preview(showBackground = true, name = "Dark", widthDp = 600, heightDp = 600)
 @Composable
-private fun ExperiencePanelDark() {
+private fun ExperienceSectionDark() {
     CricketTheme(
         darkTheme = true,
     ) {
         Box(modifier = Modifier.padding(12.dp)) {
-            ExperiencePanel()
+            ExperienceSection()
         }
     }
 }

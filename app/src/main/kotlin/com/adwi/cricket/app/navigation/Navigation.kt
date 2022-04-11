@@ -9,8 +9,8 @@ import com.adwi.cricket.feature.auth.ui.AuthScreen
 import com.adwi.cricket.feature.auth.ui.AuthViewModel
 import com.adwi.cricket.feature.home.HomeScreen
 import com.adwi.cricket.feature.home.HomeViewModel
-import com.adwi.cricket.feature.onboarding.screens.OnBoardingScreen
-import com.adwi.cricket.feature.onboarding.screens.OnBoardingViewModel
+import com.adwi.cricket.feature.onboarding.ui.OnBoardingScreen
+import com.adwi.cricket.feature.onboarding.ui.OnBoardingViewModel
 import com.google.accompanist.navigation.animation.composable
 import org.koin.androidx.compose.inject
 
@@ -26,9 +26,7 @@ fun NavGraphBuilder.cricketNavGraph(
             onSignOutClick = onSignOutClick
         )
     }
-    composable(
-        route = MainDestinations.AUTH,
-    ) {
+    composable(MainDestinations.AUTH) {
         val viewModel: AuthViewModel by inject()
         val state by viewModel.state.collectAsState()
         AuthScreen(
@@ -38,9 +36,7 @@ fun NavGraphBuilder.cricketNavGraph(
             goHome = goHome
         )
     }
-    composable(
-        route = MainDestinations.ONBOARDING,
-    ) {
+    composable(MainDestinations.ONBOARDING) {
         val viewModel: OnBoardingViewModel by inject()
         OnBoardingScreen(
             viewModel = viewModel,

@@ -1,12 +1,17 @@
-package com.adwi.cricket.feature.onboarding.screens
+package com.adwi.cricket.feature.onboarding.ui
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.adwi.cricket.feature.onboarding.components.NavigateBack
-import com.adwi.cricket.feature.onboarding.components.NavigateNext
+import com.adwi.cricket.feature.onboarding.ui.components.NavigateBack
+import com.adwi.cricket.feature.onboarding.ui.components.NavigateNext
 import org.koin.androidx.compose.get
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun OnBoardingScreen(
     viewModel: OnBoardingViewModel = get(),

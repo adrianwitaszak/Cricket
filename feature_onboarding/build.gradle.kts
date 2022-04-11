@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id(Plugins.ANDROID_LIBRARY)
     kotlin(Plugins.KOTLIN_ANDROID)
@@ -22,6 +24,16 @@ android {
         targetCompatibility = AndroidConfig.javaVersionName
     }
 }
+tasks.withType<KotlinCompile>().configureEach {
+    kotlinOptions {
+        jvmTarget = AndroidConfig.javaVersion
+        freeCompilerArgs = listOf(
+            "-Xskip-prerelease-check",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=androidx.compose.animation.ExperimentalAnimationApi",
+        )
+    }
+}
 dependencies {
     with(Modules) {
         implementation(project(COMPONENTS))
@@ -31,10 +43,13 @@ dependencies {
     with(Android) {
         implementation(lifecycle)
         implementation(composeUi)
+        implementation(composePreview)
         implementation(composeTooling)
         implementation(composeMaterial)
         implementation(composeFoundation)
+//        implementation(composeNavigation)
         implementation(composeConstrainLayout)
         debugImplementation(composeToolingDebug)
+        implementation(accompanistNavigationAnimation)
     }
 }

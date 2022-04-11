@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature.onboarding.screens
+package com.adwi.cricket.feature.onboarding.ui
 
 import androidx.lifecycle.ViewModel
 import com.adwi.cricket.feature.onboarding.model.OnBoardingQuestion

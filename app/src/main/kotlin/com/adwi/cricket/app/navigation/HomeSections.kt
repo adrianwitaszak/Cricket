@@ -14,7 +14,4 @@ enum class HomeSections(
 ) {
     AUTH(R.string.auth, Icons.Outlined.Person, "home/auth"),
     HOME(R.string.home, Icons.Outlined.Home, "home/home"),
-//    SEARCH(R.string.search, Icons.Outlined.Search, "home/search"),
-//    FAVORITES(R.string.favorites, Icons.Outlined.Favorite, "home/favorites"),
-//    SETTINGS(R.string.settings, Icons.Outlined.Settings, "home/settings")
 }

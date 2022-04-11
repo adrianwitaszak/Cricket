@@ -1,4 +1,4 @@
-package com.adwi.cricket.feature.onboarding.components
+package com.adwi.cricket.feature.onboarding.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
